@@ -16,7 +16,7 @@ import { Link } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
-import './NavbarMaterialUI.css'
+import './NavbarMaterialUI.css';
 
 const pages = [
   { name: 'My Cards', path: '/myCards' },
@@ -33,6 +33,7 @@ function ResponsiveAppBar() {
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -46,7 +47,7 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static" className='my_navbar'>
+    <AppBar position="static" className="my_navbar">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -54,7 +55,7 @@ function ResponsiveAppBar() {
             variant="h6"
             noWrap
             component={Link}
-            to={'/'}
+            to="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -67,7 +68,6 @@ function ResponsiveAppBar() {
           >
             CardKeeper
           </Typography>
-
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -103,6 +103,12 @@ function ResponsiveAppBar() {
                   <Typography textAlign="center">{page.name}</Typography>
                 </MenuItem>
               ))}
+              <MenuItem key="login" component={Link} to="/login">
+                <Typography textAlign="center">Login</Typography>
+              </MenuItem>
+              <MenuItem key="registration" component={Link} to="/registration">
+                <Typography textAlign="center">Registration</Typography>
+              </MenuItem>
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -152,32 +158,24 @@ function ResponsiveAppBar() {
             }}
           />
 
-          <Menu
-            id="menu-appbar1"
-            anchorEl={anchorElNav}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'right',
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            open={Boolean(anchorElNav)}
-            onClose={handleCloseNavMenu}
-            sx={{
-              display: { xs: 'block', md: 'none' },
-            }}
+          <Button
+            key="login"
+            component={Link}
+            to="/login"
+            onClick={handleCloseNavMenu}
+            sx={{ my: 2, color: 'white', display: 'block' }}
           >
-            <MenuItem key={'login'} component={Link} to={'/login'}>
-              <Typography textAlign="center">{'Login'}</Typography>
-            </MenuItem>
-            <MenuItem key={'registration'} component={Link} to={"/registration"}>
-              <Typography textAlign="center">{'Registration'}</Typography>
-            </MenuItem>
-
-          </Menu>
+            Login
+          </Button>
+          <Button
+            key="registration"
+            component={Link}
+            to="/registration"
+            onClick={handleCloseNavMenu}
+            sx={{ my: 2, color: 'white', display: 'block' }}
+          >
+            Registration
+          </Button>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
