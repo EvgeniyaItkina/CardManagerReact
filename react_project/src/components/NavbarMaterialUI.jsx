@@ -115,7 +115,8 @@ function ResponsiveAppBar() {
           <Typography
             variant="h5"
             noWrap
-            component="div"
+            component={Link}
+            to="/"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
