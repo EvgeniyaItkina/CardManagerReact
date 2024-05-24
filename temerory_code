@@ -1,0 +1,8 @@
+<ul>
+              {/* все  линки должны быть так же указаны path соответсвующий ссылке на компонент */}
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/about">About</Link></li>
+              <li><Link to="/contact">Contact</Link></li>
+              <li><Link to="/favCards">Fav Cards</Link></li>
+              <li><Link to="/myCards">My Cards</Link></li>
+            </ul>

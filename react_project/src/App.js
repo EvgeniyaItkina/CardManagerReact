@@ -5,33 +5,30 @@ import Contact from './components/Contact';
 import FavCards from './components/FavCards';
 import Home from './components/Home';
 import MyCards from './components/MyCards';
+import NavbarMaterialUI from './components/NavbarMaterialUI';
+import Login from './components/Login';
+import Registration from './components/Registration';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
 
 
-        <BrowserRouter>
-          <nav className="horizontal-nav">
-            <ul>
-              {/* все  линки должны быть так же указаны path соответсвующий ссылке на компонент */}
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/about">About</Link></li>
-              <li><Link to="/contact">Contact</Link></li>
-              <li><Link to="/favCards">Fav Cards</Link></li>
-              <li><Link to="/myCards">My Cards</Link></li>
-            </ul>
-          </nav>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/favCards" element={<FavCards />} />
-            <Route path="/myCards" element={<MyCards />} />
-          </Routes>
-        </BrowserRouter>
-      </header>
+      <BrowserRouter>
+        <NavbarMaterialUI />
+        <nav className="horizontal-nav">
+        </nav>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/favCards" element={<FavCards />} />
+          <Route path="/myCards" element={<MyCards />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/registration" element={<Registration />} />
+        </Routes>
+      </BrowserRouter>
+
     </div>
   );
 }
