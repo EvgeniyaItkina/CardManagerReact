@@ -16,6 +16,9 @@ import { Link } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import { useTheme } from '../context/ThemeContext';
 import './NavbarMaterialUI.css';
 
 const pages = [
@@ -26,9 +29,10 @@ const pages = [
 ];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-function ResponsiveAppBar() {
+function NavbarMaterialUI() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const { mode, toggleTheme } = useTheme();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -159,6 +163,11 @@ function ResponsiveAppBar() {
             }}
           />
 
+          <FormControlLabel
+            control={<Switch checked={mode === 'dark'} onChange={toggleTheme} />}
+            label={mode === 'light' ? 'Light Mode' : 'Dark Mode'}
+          />
+
           <Button
             key="login"
             component={Link}
@@ -212,4 +221,4 @@ function ResponsiveAppBar() {
     </AppBar>
   );
 }
-export default ResponsiveAppBar;
+export default NavbarMaterialUI;

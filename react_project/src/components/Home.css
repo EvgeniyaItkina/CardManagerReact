@@ -3,6 +3,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-weight: bold;
 }
 .card-container {
   display: flex;
@@ -21,5 +22,6 @@
   flex: 1;
 }
 .my_card_img {
-  height: 150px;
+  height: 200px;
+  object-fit: cover;
 }

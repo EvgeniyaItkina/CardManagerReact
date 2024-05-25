@@ -16,3 +16,27 @@
 .App-link {
   color: #61dafb;
 }
+
+:root {
+  --background-color: #ffffff;
+  --text-color: #000000;
+  --card-background-color: #f8f9fa;
+  --card-text-color: #343a40;
+}
+
+[data-theme="dark"] {
+  --background-color: #343a40;
+  --text-color: #ffffff;
+  --card-background-color: #495057;
+  --card-text-color: #f8f9fa;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.card-item {
+  background-color: var(--card-background-color);
+  color: var(--card-text-color);
+}
