@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background: linear-gradient(45deg, #61e787, #7fd8be, #03a64e, #038a3c, #87e6a7);
 }
 
 .App-header {
