@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import axios from 'axios';
 
 const baseCardsURL = "https://monkfish-app-z9uza.ondigitalocean.app/bcard2/cards"
+const baseUsersURL = "https://monkfish-app-z9uza.ondigitalocean.app/bcard2/users"
 
 const useAPI = () => {
   const [error, setError] = useState("");
@@ -16,6 +17,9 @@ const useAPI = () => {
       switch (method) {
         case METHOD.CARDS_GET_ALL:
           response = await axios.get(baseCardsURL);
+          break;
+        case METHOD.USER_REGISTER:
+          response = await axios.post(baseUsersURL, payload);
           break;
 
         // другие методы
@@ -40,6 +44,7 @@ export const METHOD = {
 
   USERS_GET_ALL: 'USERS_GET_ALL',
   USERS_GET_ONE: 'USERS_GET_ONE',
+  USER_REGISTER: "USER_REGISTER",
 
   CREATE: 'CREATE',
   UPDATE: 'UPDATE',

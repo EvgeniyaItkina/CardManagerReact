@@ -1,11 +1,12 @@
 import './Registration.css';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import { useNavigate } from 'react-router-dom'
 import {
   validateName,
   validateEmail,
@@ -17,12 +18,58 @@ import {
   validateZip,
   validateBoolean
 } from '../models/validation';
+import useAPI, { METHOD } from '../hooks/useAPI';
 
 const RegisterForm = () => {
-  const { control, handleSubmit, formState: { errors }, setError, clearErrors } = useForm();
+  const { control, handleSubmit, formState: { errors }, setError, clearErrors, reset } = useForm();
+  const [data, error, isLoading, apiCall] = useAPI();
+  const [successfulReg, setSuccessfulReg] = useState(false);
+  const navigate = useNavigate()
 
+  useEffect(() => {
+    if (data) {
+      console.log("registration data:", data);
+      setSuccessfulReg(true);
+
+
+      setTimeout(() => {
+        navigate("/")
+      }, 2000);
+      //navigation to page Home;
+    }
+  }, [data, navigate]);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (successfulReg) return <div className='successfulReg'>You sre successfuly registratied</div>
   const onSubmit = (data) => {
-    console.log(data);
+    if (!data.firstName) return
+
+    const payload = {
+      name: {
+        first: data.firstName,
+        middle: data.middleName,
+        last: data.lastName
+      },
+      phone: data.phone,
+      email: data.email,
+      password: data.password,
+      image: {
+        url: data.imageUrl,
+        alt: "card picture"
+      },
+      address: {
+        state: data.state,
+        country: data.country,
+        city: data.city,
+        street: data.street,
+        houseNumber: data.houseNumber,
+        zip: data.zip
+      },
+      isBusiness: data.isBusiness,
+    }
+    apiCall(METHOD.USER_REGISTER, payload);
+
   };
 
   const handleValidation = (name, value) => {
@@ -68,6 +115,7 @@ const RegisterForm = () => {
       clearErrors(name);
     }
   };
+
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='my_registration_container'>
@@ -342,8 +390,8 @@ const RegisterForm = () => {
           />
         </Grid>
         <Grid item xs={12}>
-          <Button type="submit" variant="contained" color="primary" className='my_button'>Create</Button>
-          <Button type="button" variant="outlined" color="secondary" className='my_button'>Cancel</Button>
+          <Button type="submit" variant="contained" color="primary" disabled={Object.keys(errors).length > 0} className='my_button'>Create</Button>
+          <Button type="button" variant="outlined" color="secondary" onClick={reset} className='my_button'>Clear</Button>
         </Grid>
       </Grid>
     </form>
