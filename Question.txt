@@ -11,7 +11,7 @@ Main page (first enter) -
 Login:
 - validation with users API tolkin 
 - where I can check on server who is registrated
-200 – home 
+200 ï¿½ home 
 
 Registration:
 - validation with the user
@@ -33,9 +33,9 @@ Page after Login admin (tolkin)
 only admin see who is registrated
 email: admin@gmail.com
 Password: Abc!123Abc
-- change user properties?
+- change userï¿½properties?
 
-SendBOX: (CRM) – list of all users , list of all cards, which type of user 
+SendBOX: (CRM) ï¿½ list of all users , list of all cards, which type of user 
 
 
 which type of users I can create? Business/notbiseness
@@ -44,7 +44,7 @@ which type of users I can create? Business/notbiseness
 
 
 
-technology’s:
+technologyï¿½s:
 bootstrap
 MUI
 useState 
@@ -53,5 +53,6 @@ useForm Controller
 useMemo - DarkTheme
 Router 
 REDUX (STORE PROVIDER SLICE)
+npm install jwt-decode
 
 

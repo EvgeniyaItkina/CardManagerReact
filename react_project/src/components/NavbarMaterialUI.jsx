@@ -20,12 +20,11 @@ import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { useTheme } from '../context/ThemeContext';
 import './NavbarMaterialUI.css';
+import { useSelector } from 'react-redux';
 
-const pages = [
-  { name: 'My Cards', path: '/myCards' },
-  { name: 'Fav Cards', path: '/favCards' },
+
+let pages = [
   { name: 'About', path: '/about' },
-  { name: 'Contact', path: '/contact' }
 ];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -33,6 +32,38 @@ function NavbarMaterialUI() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const { mode, toggleTheme } = useTheme();
+  const userState = useSelector(store => store.user)
+
+  if (userState && userState.isBusiness && !userState.isAdmin
+  ) {
+    console.log("userState:", userState);
+    pages = [
+      { name: 'My Cards', path: '/myCards' },
+      { name: 'Fav Cards', path: '/favCards' },
+      { name: 'About', path: '/about' },
+      { name: 'Contact', path: '/contact' }
+    ];
+  }
+
+  if (userState && !userState.isBusiness && !userState.isAdmin) {
+    console.log("userState:", userState);
+    pages = [
+      { name: 'Fav Cards', path: '/favCards' },
+      { name: 'About', path: '/about' },
+    ];
+  }
+
+  if (userState && userState.isBusiness && userState.isAdmin) {
+    console.log("userState:", userState);
+    pages = [
+      { name: 'My Cards', path: '/myCards' },
+      { name: 'Fav Cards', path: '/favCards' },
+      { name: 'About', path: '/about' },
+      { name: 'Contact', path: '/contact' },
+      { name: 'CRM', path: '/CRM' }
+    ];
+  }
+
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);

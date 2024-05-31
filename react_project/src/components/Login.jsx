@@ -10,21 +10,28 @@ import {
   validatePassword
 } from '../models/validation';
 import useAPI, { METHOD } from '../hooks/useAPI';
+import { login } from './UserSlice';
+import { useDispatch } from 'react-redux';
 
 const Login = () => {
   const { control, handleSubmit, formState: { errors }, setError, clearErrors, reset } = useForm();
   const [data, error, isLoading, apiCall] = useAPI();
   const [successfulReg, setSuccessfulReg] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch()
+
 
   useEffect(() => {
     if (data) {
       console.log("login data:", data);
       // Handle successful login
       setSuccessfulReg(true);
-      navigate("/");
+      dispatch(login(data))
+      setTimeout(() => {
+        navigate("/")
+      }, 2000);
     }
-  }, [data, navigate]);
+  }, [data, navigate, dispatch]);
 
   const handleValidation = (name, value) => {
     let error = '';
@@ -55,7 +62,12 @@ const Login = () => {
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
-  if (successfulReg) return <div className='successfulReg'>You sre successfuly login</div>
+
+  if (successfulReg) {
+
+    return <div className='successfulReg'>You sre successfuly login</div>
+  }
+
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='my_login_container'>
