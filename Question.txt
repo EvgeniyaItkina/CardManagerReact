@@ -1,0 +1,57 @@
+Main page (first enter) -
+- page About
+- page login
+- page Registration 
+- cards_get_all
+- cards_get_one
+- search card
+- footer
+-
+
+Login:
+- validation with users API tolkin 
+- where I can check on server who is registrated
+200 – home 
+
+Registration:
+- validation with the user
+- user_post
+
+Page after Login NOT business - user (tolkin):
+- favorite cards
+
+Page after Login business - user (tolkin):
+- create card create_card_api
+- update(post)_card_api only his cards
+- favorite cards
+- my cards??? What there his cards that created - delete card only his cards
+
+Page after Login admin (tolkin)
+- delete cards - 
+- delete user???? + delete all cards(favorit, my cards api 2)
+- send box??? What inside 
+only admin see who is registrated
+email: admin@gmail.com
+Password: Abc!123Abc
+- change user properties?
+
+SendBOX: (CRM) – list of all users , list of all cards, which type of user 
+
+
+which type of users I can create? Business/notbiseness
+
+
+
+
+
+technology’s:
+bootstrap
+MUI
+useState 
+useEffect
+useForm Controller
+useMemo - DarkTheme
+Router 
+REDUX (STORE PROVIDER SLICE)
+
+

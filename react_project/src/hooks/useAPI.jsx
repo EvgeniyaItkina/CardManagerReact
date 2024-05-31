@@ -18,8 +18,14 @@ const useAPI = () => {
         case METHOD.CARDS_GET_ALL:
           response = await axios.get(baseCardsURL);
           break;
+        /*  case METHOD.CARDS_GET_ONE:
+           response = await axios.get(`baseCardsURL/${id}`);
+           break; */
         case METHOD.USER_REGISTER:
           response = await axios.post(baseUsersURL, payload);
+          break;
+        case METHOD.USER_LOGIN:
+          response = await axios.post(`${baseUsersURL}/login`, payload);
           break;
 
         // другие методы
@@ -45,6 +51,7 @@ export const METHOD = {
   USERS_GET_ALL: 'USERS_GET_ALL',
   USERS_GET_ONE: 'USERS_GET_ONE',
   USER_REGISTER: "USER_REGISTER",
+  USER_LOGIN: "USER_LOGIN",
 
   CREATE: 'CREATE',
   UPDATE: 'UPDATE',
