@@ -4,9 +4,11 @@
   font-family: "Nothing You Could Do", cursive !important; 
   font-weight: 400;
   font-style: normal;
+  margin-top: 20px;
 }
 
 .card-item {
+  position: relative;
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s;
@@ -14,4 +16,47 @@
 
 .card-item:hover {
   transform: scale(1.05);
+}
+
+
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.icon-button img {
+  width: 35px;
+  height: 35px;
+}
+
+
+.phone-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.phone-popup-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.phone-popup-content button {
+  margin-top: 10px;
+  background: green;
 }

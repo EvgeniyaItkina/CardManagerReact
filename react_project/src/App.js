@@ -1,7 +1,6 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import About from './components/About';
-import Contact from './components/Contact';
 import FavCards from './components/FavCards';
 import Home from './components/Home';
 import MyCards from './components/MyCards';
@@ -22,7 +21,6 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
             <Route path="/favCards" element={<FavCards />} />
             <Route path="/myCards" element={<MyCards />} />
             <Route path="/login" element={<Login />} />

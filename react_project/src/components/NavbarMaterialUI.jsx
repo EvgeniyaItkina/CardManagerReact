@@ -20,49 +20,78 @@ import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { useTheme } from '../context/ThemeContext';
 import './NavbarMaterialUI.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from './UserSlice';
+import { useState } from 'react';
 
 
 let pages = [
   { name: 'About', path: '/about' },
 ];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+let buttons = [
+  { name: 'Login', path: '/login' },
+  { name: 'Registration', path: '/registration' },
+];
 
 function NavbarMaterialUI() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [search, setSearch] = useState('');
   const { mode, toggleTheme } = useTheme();
   const userState = useSelector(store => store.user)
+  const dispatch = useDispatch()
+
+
 
   if (userState && userState.isBusiness && !userState.isAdmin
   ) {
     console.log("userState:", userState);
     pages = [
-      { name: 'My Cards', path: '/myCards' },
-      { name: 'Fav Cards', path: '/favCards' },
       { name: 'About', path: '/about' },
-      { name: 'Contact', path: '/contact' }
+      { name: 'Fav Cards', path: '/favCards' },
+      { name: 'My Cards', path: '/myCards' },
     ];
+    buttons = [];
   }
 
   if (userState && !userState.isBusiness && !userState.isAdmin) {
     console.log("userState:", userState);
     pages = [
-      { name: 'Fav Cards', path: '/favCards' },
       { name: 'About', path: '/about' },
+      { name: 'Fav Cards', path: '/favCards' },
     ];
+    buttons = [];
   }
 
   if (userState && userState.isBusiness && userState.isAdmin) {
     console.log("userState:", userState);
     pages = [
-      { name: 'My Cards', path: '/myCards' },
-      { name: 'Fav Cards', path: '/favCards' },
       { name: 'About', path: '/about' },
-      { name: 'Contact', path: '/contact' },
+      { name: 'Fav Cards', path: '/favCards' },
+      { name: 'My Cards', path: '/myCards' },
       { name: 'CRM', path: '/CRM' }
     ];
+    buttons = [];
   }
+  if (!userState) {
+    pages = [
+      { name: 'About', path: '/about' },
+    ];
+    buttons = [
+      { name: 'Login', path: '/login' },
+      { name: 'Registration', path: '/registration' },
+    ];
+  }
+
+  const handleSearchChange = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    console.log('Поиск по:', search);
+    // Добавьте логику для выполнения поиска или фильтрации
+  };
 
 
   const handleOpenNavMenu = (event) => {
@@ -79,7 +108,15 @@ function NavbarMaterialUI() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  }
+
+  const handleUserLogout = () => {
+    console.log("handleUserLogout");
+    dispatch(logout());
+    handleCloseUserMenu();
+
   };
+  console.log("logout:", userState);
 
   return (
     <AppBar position="static" className="my_navbar">
@@ -138,12 +175,18 @@ function NavbarMaterialUI() {
                   <Typography textAlign="center">{page.name}</Typography>
                 </MenuItem>
               ))}
-              <MenuItem key="login" component={Link} to="/login">
-                <Typography textAlign="center">Login</Typography>
-              </MenuItem>
-              <MenuItem key="registration" component={Link} to="/registration">
-                <Typography textAlign="center">Registration</Typography>
-              </MenuItem>
+
+              {buttons.map((button) => (
+
+                <Button
+                  key={button.name}
+                  component={Link}
+                  to={button.path}
+                  sx={{ my: 2, color: 'inherit', display: 'block' }}
+                >
+                  <Typography textAlign="center">{button.name}</Typography>
+                </Button>
+              ))}
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -180,48 +223,52 @@ function NavbarMaterialUI() {
             ))}
           </Box>
 
-          <TextField
-            variant="outlined"
-            placeholder="Search..."
-            size="small"
-            sx={{ marginRight: 2, backgroundColor: 'white', borderRadius: 1 }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
+
+          {/*SEARCH*/}
+          <form onSubmit={handleSearchSubmit}>
+            <TextField
+              variant="outlined"
+              placeholder="Search..."
+              size="small"
+              value={search}
+              onChange={handleSearchChange}
+              sx={{ marginRight: 2, backgroundColor: 'white', borderRadius: 1 }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </form>
 
           <FormControlLabel
             control={<Switch checked={mode === 'dark'} onChange={toggleTheme} />}
             label={mode === 'light' ? 'Light Mode' : 'Dark Mode'}
           />
 
-          <Button
-            key="login"
-            component={Link}
-            to="/login"
-            onClick={handleCloseNavMenu}
-            sx={{ my: 2, color: 'white', display: 'block' }}
-          >
-            Login
-          </Button>
-          <Button
-            key="registration"
-            component={Link}
-            to="/registration"
-            onClick={handleCloseNavMenu}
-            sx={{ my: 2, color: 'white', display: 'block' }}
-          >
-            Registration
-          </Button>
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            {buttons.map((button) => (
+              <Button
+                key={button.name}
+                component={Link}
+                to={button.path}
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                {button.name}
+              </Button>
+            ))}
+          </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+
+
+          <Box sx={userState ? { display: 'flex', flexGrow: 0 } : { display: 'none' }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                {/* НАЙДИ И ЗАМЕНИ КАРТИНКУ!!!!!!!!!! */}
+                <Avatar alt="Label" src="/favicon.ico" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -240,11 +287,9 @@ function NavbarMaterialUI() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem key="Logout" onClick={handleUserLogout}>
+                <Typography textAlign="center">Logout</Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>

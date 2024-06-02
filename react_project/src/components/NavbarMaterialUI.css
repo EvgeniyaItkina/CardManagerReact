@@ -2,3 +2,11 @@
   background: linear-gradient(45deg, #038a3c, #61e787);
   border-radius: 40px;
 }
+.my_navbar .MuiButtonBase-root {
+  color: white;
+}
+
+.my_navbar .MuiTypography-root {
+  color: inherit;
+  text-decoration: none;
+}

@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Grid, Card, CardContent, CardMedia, Typography, CardActionArea } from '@mui/material';
+import { Container, Grid, Card, CardContent, CardMedia, Typography, CardActionArea, Button } from '@mui/material';
 import useAPI, { METHOD } from '../hooks/useAPI';
 import './Home.css';
 
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import callIcon from '../images/call.png';
+import likeIcon from '../images/like.png';
+import likeRedIcon from '../images/like_red.png';
 
-const Home = () => {
+
+const Home = (search) => {
   const [listOfCards, setListOfCards] = useState([]);
+  const [likedCards, setLikedCards] = useState([]);
   const [data, error, isLoading, apiCall] = useAPI();
+  const [showPhone, setShowPhone] = useState({ visible: false, phone: '' });
+  const userState = useSelector(store => store.user);
 
   useEffect(() => {
     apiCall(METHOD.CARDS_GET_ALL);
@@ -23,6 +32,25 @@ const Home = () => {
   if (error) return <div>Error: {error}</div>;
   if (listOfCards.length < 1) return <div>No results found</div>;
 
+
+  const handleLike = (cardId) => {
+    setLikedCards(prevLikedCards => {
+      if (prevLikedCards.includes(cardId)) {
+        return prevLikedCards.filter(id => id !== cardId);
+      } else {
+        return [...prevLikedCards, cardId];
+      }
+    });
+  };
+
+  const handleShowPhone = (phone) => {
+    setShowPhone({ visible: true, phone });
+  };
+
+  const handleClosePhone = () => {
+    setShowPhone({ visible: false, phone: '' });
+  };
+
   return (
     <Container className='my_container'>
       <Typography variant="h4" gutterBottom >
@@ -32,7 +60,7 @@ const Home = () => {
         {listOfCards.map((card) => (
           <Grid item key={card._id} xs={12} sm={6} md={4}>
             <Card className="card-item">
-              <CardActionArea>
+              <CardActionArea component={Link} to={`/cardview/${card._id}`}>
                 <CardMedia
                   component="img"
                   alt={card.image.alt}
@@ -40,6 +68,7 @@ const Home = () => {
                   image={card.image.url}
                   title={card.title}
                 />
+
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
                     {card.title}
@@ -58,10 +87,34 @@ const Home = () => {
                   </Typography>
                 </CardContent>
               </CardActionArea>
+
+              <div className="card-actions">
+                <button onClick={() => handleShowPhone(card.phone)} className="icon-button">
+                  <img src={callIcon} alt="Call" />
+                </button>
+                {userState && (
+                  <button onClick={() => handleLike(card._id)} className="icon-button">
+                    <img src={likedCards.includes(card._id) ? likeRedIcon : likeIcon} alt="Like" />
+                  </button>
+                )}
+
+              </div>
+
             </Card>
           </Grid>
         ))}
       </Grid>
+
+      {showPhone.visible && (
+        <div className="phone-popup">
+          <div className="phone-popup-content">
+            <Typography variant="h6">Phone: {showPhone.phone}</Typography>
+            <Button variant="contained" color="secondary" onClick={handleClosePhone}>
+              Close
+            </Button>
+          </div>
+        </div>
+      )}
     </Container>
   );
 };

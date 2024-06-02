@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Contact = () => {
+const CRM = () => {
   return (
     <div>
-      Contacts
+      You are ADMINE!
     </div>
   )
 }
 
-export default Contact
+export default CRM
