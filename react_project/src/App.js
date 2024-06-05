@@ -9,6 +9,7 @@ import Login from './components/Login';
 import Registration from './components/Registration';
 import Store from './Store'
 import { Provider } from 'react-redux';
+import CardView from './components/CardView';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/myCards" element={<MyCards />} />
             <Route path="/login" element={<Login />} />
             <Route path="/registration" element={<Registration />} />
+            <Route path="/cardview/:cardId" element={<CardView />} />
           </Routes>
         </BrowserRouter>
 

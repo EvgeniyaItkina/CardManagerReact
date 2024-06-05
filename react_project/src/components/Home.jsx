@@ -28,11 +28,6 @@ const Home = (search) => {
     }
   }, [data]);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
-  if (listOfCards.length < 1) return <div>No results found</div>;
-
-
   const handleLike = (cardId) => {
     setLikedCards(prevLikedCards => {
       if (prevLikedCards.includes(cardId)) {
@@ -50,6 +45,10 @@ const Home = (search) => {
   const handleClosePhone = () => {
     setShowPhone({ visible: false, phone: '' });
   };
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (listOfCards.length < 1) return <div>No results found</div>;
 
   return (
     <Container className='my_container'>

@@ -1,40 +1,47 @@
+:root {
+  --background-gradient: linear-gradient(135deg, #7df187 0%, #81c784 50%, #2e7d32 100%);
+  --header-background-color: #81c784; /* Светлый фон для заголовка */
+  --header-text-color: #2e7d32; /* Темный текст для заголовка */
+  --link-color: #388e3c; /* Цвет ссылок */
+  --text-color: #000000; /* Основной цвет текста */
+  --card-background-color: #ffffff; /* Фон карточек */
+  --card-text-color: #343a40; /* Текст на карточках */
+}
+
+[data-theme="dark"] {
+  --background-gradient: linear-gradient(135deg, #263238 0%, #37474f 50%, #1b5e20 100%);
+  --header-background-color: #37474f; /* Темный фон для заголовка */
+  --header-text-color: #ffffff; /* Светлый текст для заголовка */
+  --link-color: #81c784; /* Цвет ссылок */
+  --text-color: #ffffff; /* Основной цвет текста */
+  --card-background-color: #37474f; /* Фон карточек */
+  --card-text-color: #c8e6c9; /* Текст на карточках */
+}
+
+body {
+  background: var(--background-gradient); /* Применяем градиент как фон */
+  color: var(--text-color);
+}
+
 .App {
   text-align: center;
-  background: linear-gradient(45deg, #61e787, #7fd8be, #03a64e, #038a3c, #87e6a7);
+  /* background: linear-gradient(45deg, #61e787, #7fd8be, #03a64e, #038a3c, #87e6a7); */
+  background-color: var(--background-color); 
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: var(--header-background-color);
   min-height: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: var(--header-text-color); 
 }
 
 .App-link {
-  color: #61dafb;
-}
-
-:root {
-  --background-color: #ffffff;
-  --text-color: #000000;
-  --card-background-color: #f8f9fa;
-  --card-text-color: #343a40;
-}
-
-[data-theme="dark"] {
-  --background-color: #343a40;
-  --text-color: #ffffff;
-  --card-background-color: #495057;
-  --card-text-color: #f8f9fa;
-}
-
-body {
-  background-color: var(--background-color);
-  color: var(--text-color);
+  color: var(--link-color);
 }
 
 .card-item {

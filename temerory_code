@@ -7,6 +7,7 @@
               <li><Link to="/myCards">My Cards</Link></li>
             </ul>
 
+<section className="grid-Container">{cardData.map((card, index)=> index<3 &&<Card key={card._id} {...card} />)}</section>
 
 Main page (first enter) -
 - page About

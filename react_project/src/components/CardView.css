@@ -1,0 +1,22 @@
+.card-detail-container {
+  height: 100vh;
+  margin-top: 20px;
+}
+
+.card-detail {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.card-detail img {
+  margin: 0 auto;
+  width: 100%;
+}
+
+.card-detail-content {
+  padding: 20px;
+}
+
+.card-detail .MuiButton-root {
+  margin-top: 20px;
+}

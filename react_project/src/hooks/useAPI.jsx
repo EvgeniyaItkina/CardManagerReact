@@ -18,9 +18,10 @@ const useAPI = () => {
         case METHOD.CARDS_GET_ALL:
           response = await axios.get(baseCardsURL);
           break;
-        /*  case METHOD.CARDS_GET_ONE:
-           response = await axios.get(`baseCardsURL/${id}`);
-           break; */
+        case METHOD.CARDS_GET_ONE:
+          const { id } = payload;  // Извлекаем id из payload
+          response = await axios.get(`${baseCardsURL}/${id}`);
+          break;
         case METHOD.USER_REGISTER:
           response = await axios.post(baseUsersURL, payload);
           break;

@@ -42,7 +42,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
+  background-color: var(--popup-background-color, #ffffff); /* Фон модального окна */
+  color: var(--popup-text-color, #000000); /* Цвет текста в модальном окне */
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
