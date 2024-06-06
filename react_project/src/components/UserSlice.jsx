@@ -6,16 +6,18 @@ export const UserSlice = createSlice({
   initialState: null,
   reducers: {
     login: (state, action) => {
+      const token = action.payload;
+      console.log("action", action);
+      console.log("state", state);
+      localStorage.setItem('token', token);
       const userData = jwtDecode(action.payload)
-      console.log("state:", state);
-      console.log("action:", action);
       return { ...state, ...userData };
     },
 
     logout: (state, action) => {
+      localStorage.removeItem('token');
       return null
     },
-
   }
 })
 

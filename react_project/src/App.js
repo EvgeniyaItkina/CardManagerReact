@@ -10,6 +10,9 @@ import Registration from './components/Registration';
 import Store from './Store'
 import { Provider } from 'react-redux';
 import CardView from './components/CardView';
+import MyCardsNew from './components/MyCardsNew';
+import MyCardsEdit from './components/MyCardsEdit';
+import MyCardsDelete from './components/MyCardsDelete';
 
 function App() {
   return (
@@ -27,6 +30,9 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/registration" element={<Registration />} />
             <Route path="/cardview/:cardId" element={<CardView />} />
+            <Route path="/mycardsnew" element={<MyCardsNew />} />
+            <Route path="//mycardsedit/:cardId" element={<MyCardsEdit />} />
+            <Route path="/mycardsdelete/:cardId" element={<MyCardsDelete />} />
           </Routes>
         </BrowserRouter>
 

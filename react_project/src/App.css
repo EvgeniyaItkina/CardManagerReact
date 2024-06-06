@@ -1,5 +1,6 @@
 :root {
-  --background-gradient: linear-gradient(135deg, #7df187 0%, #81c784 50%, #2e7d32 100%);
+  --background-color: #4CAF50;
+ /*  --background-gradient: linear-gradient(135deg, #7df187 0%, #81c784 50%, #2e7d32 100%); */
   --header-background-color: #81c784; /* Светлый фон для заголовка */
   --header-text-color: #2e7d32; /* Темный текст для заголовка */
   --link-color: #388e3c; /* Цвет ссылок */
@@ -9,7 +10,8 @@
 }
 
 [data-theme="dark"] {
-  --background-gradient: linear-gradient(135deg, #263238 0%, #37474f 50%, #1b5e20 100%);
+  --background-color: #1b5e20;
+/*   --background-gradient: linear-gradient(135deg, #263238 0%, #37474f 50%, #1b5e20 100%); */
   --header-background-color: #37474f; /* Темный фон для заголовка */
   --header-text-color: #ffffff; /* Светлый текст для заголовка */
   --link-color: #81c784; /* Цвет ссылок */
@@ -19,11 +21,12 @@
 }
 
 body {
-  background: var(--background-gradient); /* Применяем градиент как фон */
+  background: var(--background-color); /* Применяем градиент как фон */
   color: var(--text-color);
 }
 
 .App {
+  height: 100vh;
   text-align: center;
   /* background: linear-gradient(45deg, #61e787, #7fd8be, #03a64e, #038a3c, #87e6a7); */
   background-color: var(--background-color); 

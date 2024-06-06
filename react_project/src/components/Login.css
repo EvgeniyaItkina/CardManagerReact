@@ -20,7 +20,7 @@ margin: 100px 25% ;
 .login-container h2 {
   font-size: 3em;
   font-family: Georgia, 'Times New Roman', Times, serif;
-  color: #e4d1d1; /* Темный текст */
+  color: var(--input-text-color);
   margin-top: 40px;
   margin-bottom: 20px;
 }
@@ -29,9 +29,9 @@ margin: 100px 25% ;
  border-radius:50px;
  background-color: var(--input-background-color); /* Фон для полей ввода */
  color: black;
-  border: 1px solid var(--input-border-color); /* Граница */
-  padding: 10px 15px; /* Внутренний отступ */
-  font-size: 1em; /* Размер шрифта */
+ border: 1px solid var(--input-border-color); /* Граница */
+ padding: 10px 15px; /* Внутренний отступ */
+ font-size: 1em; /* Размер шрифта */
 }
 .my_input .MuiInputBase-input {
   color: black;

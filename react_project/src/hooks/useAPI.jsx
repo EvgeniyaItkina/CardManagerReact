@@ -22,6 +22,10 @@ const useAPI = () => {
           const { id } = payload;  // Извлекаем id из payload
           response = await axios.get(`${baseCardsURL}/${id}`);
           break;
+        case METHOD.CARDS_CREATE:
+          response = await axios.post(baseCardsURL, payload);
+          break;
+
         case METHOD.USER_REGISTER:
           response = await axios.post(baseUsersURL, payload);
           break;
@@ -48,6 +52,9 @@ const useAPI = () => {
 export const METHOD = {
   CARDS_GET_ALL: 'CARDS_GET_ALL',
   CARDS_GET_ONE: 'CARDS_GET_ONE',
+  CARDS_CREATE: 'CARDS_CREATE',
+  CARDS_DELETE: 'CARDS_DELETE',
+  CARDS_UPDATE: 'CARDS_UPDATE',
 
   USERS_GET_ALL: 'USERS_GET_ALL',
   USERS_GET_ONE: 'USERS_GET_ONE',

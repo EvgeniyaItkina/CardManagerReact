@@ -1,61 +1,58 @@
-import './Registration.css';
+import './MyCardsNew.css';
 import React, { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import { useNavigate } from 'react-router-dom'
 import {
-  validateName,
   validateEmail,
   validatePhone,
-  validatePassword,
   validateUrl,
   validateState,
   validateCountry,
   validateCity,
   validateStreet,
   validateHouseNumber,
-  validateZip
+  validateZip,
+  validateCardTitle,
+  validateCardSubtitle,
+  validateCardDescription
 } from '../models/validation';
 import useAPI, { METHOD } from '../hooks/useAPI';
 import { Typography } from '@mui/material';
 
 
-const RegisterForm = () => {
+const MyCardsNew = () => {
   const { control, handleSubmit, formState: { errors }, setError, clearErrors, reset } = useForm();
   const [data, error, isLoading, apiCall] = useAPI();
-  const [successfulReg, setSuccessfulReg] = useState(false);
+  const [successfulRegCreate, setsuccessfulRegCreate] = useState(false);
   const [formError, setFormError] = useState('');
   const navigate = useNavigate()
 
   useEffect(() => {
     if (data) {
-      console.log("registration data:", data);
-      setSuccessfulReg(true);
+      setsuccessfulRegCreate(true);
       setTimeout(() => {
-        navigate("/")
+        navigate("/myCards")
       }, 2000);
-      //navigation to page Home;
     }
   }, [data, navigate]);
 
   useEffect(() => {
     if (error) {
-      const errorMessage = error.response?.data?.message || 'Error: Registration failed. Please try again.';
+      const errorMessage = error.response?.data?.message || 'Error: Create is failed. Please try again.';
       setFormError(errorMessage);
     }
   }, [error]);
 
 
   const onSubmit = (data) => {
-    if (!data.firstName
-      || !data.lastName
-      || !data.email
+    if (!data.title
+      || !data.subtitle
+      || !data.description
       || !data.phone
-      || !data.password
+      || !data.email
       || !data.country
       || !data.city
       || !data.street
@@ -65,14 +62,12 @@ const RegisterForm = () => {
     }
 
     const payload = {
-      name: {
-        first: data.firstName,
-        middle: data.middleName,
-        last: data.lastName
-      },
+      title: data.title,
+      subtitle: data.subtitle,
+      description: data.description,
       phone: data.phone,
       email: data.email,
-      password: data.password,
+      web: data.web,
       image: {
         url: data.imageUrl,
         alt: "card picture"
@@ -85,9 +80,9 @@ const RegisterForm = () => {
         houseNumber: data.houseNumber,
         zip: data.zip
       },
-      isBusiness: data.isBusiness,
+
     }
-    apiCall(METHOD.USER_REGISTER, payload);
+    apiCall(METHOD.CARDS_CREATE, payload);
 
   };
 
@@ -105,18 +100,20 @@ const RegisterForm = () => {
   const handleValidation = (name, value) => {
     let error = '';
     switch (name) {
-      case 'firstName':
-      case 'lastName':
-        error = validateName(value);
+      case 'title':
+        error = validateCardTitle(value);
         break;
-      case 'email':
-        error = validateEmail(value);
+      case 'subtitle':
+        error = validateCardSubtitle(value);
+        break;
+      case 'description':
+        error = validateCardDescription(value);
         break;
       case 'phone':
         error = validatePhone(value);
         break;
-      case 'password':
-        error = validatePassword(value);
+      case 'email':
+        error = validateEmail(value);
         break;
       case 'imageUrl':
         error = validateUrl(value);
@@ -150,27 +147,27 @@ const RegisterForm = () => {
   };
 
   if (isLoading) return <div>Loading...</div>;
-  if (successfulReg) return <div className='successfulReg'>You sre successfuly registratied. You need to Login!</div>
+  if (successfulRegCreate) return <div className='successfulRegCreate'>You sre successfuly registratied. You need to Login!</div>
 
   return (
-    <div className="registration-container">
-      <h2>Registration</h2>
+    <div className="myCardsNew-container">
+      <h2>Form to Create New Card</h2>
       <form onSubmit={handleSubmit(onSubmit)} className='my_registration_container'>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
             <Controller
-              name="firstName"
+              name="title"
               control={control}
               defaultValue=""
               render={({ field }) => (
                 <TextField
                   {...field}
-                  label="First Name*"
+                  label="Title *"
                   variant="outlined"
                   fullWidth
-                  error={!!errors.firstName}
-                  helperText={errors.firstName ? errors.firstName.message : ''}
-                  onBlur={(e) => handleValidation('firstName', e.target.value)}
+                  error={!!errors.title}
+                  helperText={errors.title ? errors.title.message : ''}
+                  onBlur={(e) => handleValidation('title', e.target.value)}
                   className="my_input"
                   FormHelperTextProps={{ style: { textAlign: 'center' } }}
                 />
@@ -179,18 +176,58 @@ const RegisterForm = () => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Controller
-              name="lastName"
+              name="subtitle"
               control={control}
               defaultValue=""
               render={({ field }) => (
                 <TextField
                   {...field}
-                  label="Last Name*"
+                  label="Subtitle *"
                   variant="outlined"
                   fullWidth
-                  error={!!errors.lastName}
-                  helperText={errors.lastName ? errors.lastName.message : ''}
-                  onBlur={(e) => handleValidation('lastName', e.target.value)}
+                  error={!!errors.subtitle}
+                  helperText={errors.subtitle ? errors.subtitle.message : ''}
+                  onBlur={(e) => handleValidation('subtitle', e.target.value)}
+                  className="my_input"
+                  FormHelperTextProps={{ style: { textAlign: 'center' } }}
+                />
+              )}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Controller
+              name="description"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label="Description *"
+                  variant="outlined"
+                  fullWidth
+                  error={!!errors.description}
+                  helperText={errors.description ? errors.description.message : ''}
+                  onBlur={(e) => handleValidation('description', e.target.value)}
+                  className="my_input"
+                  FormHelperTextProps={{ style: { textAlign: 'center' } }}
+                />
+              )}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Controller
+              name="phone"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label="Phone*"
+                  variant="outlined"
+                  fullWidth
+                  error={!!errors.phone}
+                  helperText={errors.phone ? errors.phone.message : ''}
+                  onBlur={(e) => handleValidation('phone', e.target.value)}
                   className="my_input"
                   FormHelperTextProps={{ style: { textAlign: 'center' } }}
                 />
@@ -225,55 +262,16 @@ const RegisterForm = () => {
               render={({ field }) => (
                 <TextField
                   {...field}
-                  label="Middle Name"
+                  label="Web"
                   variant="outlined"
                   fullWidth
+                  placeholder="https://www.yourwebsite.com"
                   className="my_input"
                 />
               )}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <Controller
-              name="phone"
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="Phone*"
-                  variant="outlined"
-                  fullWidth
-                  error={!!errors.phone}
-                  helperText={errors.phone ? errors.phone.message : ''}
-                  onBlur={(e) => handleValidation('phone', e.target.value)}
-                  className="my_input"
-                  FormHelperTextProps={{ style: { textAlign: 'center' } }}
-                />
-              )}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Controller
-              name="password"
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="Password*"
-                  type="password"
-                  variant="outlined"
-                  fullWidth
-                  error={!!errors.password}
-                  helperText={errors.password ? errors.password.message : ''}
-                  onBlur={(e) => handleValidation('password', e.target.value)}
-                  className="my_input"
-                  FormHelperTextProps={{ style: { textAlign: 'center' } }}
-                />
-              )}
-            />
-          </Grid>
+
           <Grid item xs={12}>
             <Controller
               name="imageUrl"
@@ -412,30 +410,7 @@ const RegisterForm = () => {
               )}
             />
           </Grid>
-          <Grid item xs={12}>
-            <Controller
-              name="isBusiness"
-              control={control}
-              defaultValue={false}
-              render={({ field }) => (
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      {...field}
-                      color="primary"
-                      checked={field.value}
-                      onChange={(e) => {
-                        field.onChange(e.target.checked);
-                        handleValidation('isBusiness', e.target.checked);
-                      }}
-                    />
-                  }
-                  label="Is Business"
-                  className="my_checkbox"
-                />
-              )}
-            />
-          </Grid>
+
           <Grid item xs={12}>
             <Button type="submit" variant="contained" color="primary" disabled={Object.keys(errors).length > 0} className='my_button'>Create</Button>
             <Button type="button" variant="outlined" color="secondary" onClick={handleClear} className='my_button'>Clear</Button>
@@ -456,4 +431,4 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default MyCardsNew;

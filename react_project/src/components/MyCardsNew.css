@@ -7,7 +7,8 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-.registration-container h2 {
+
+.myCardsNew-container h2 {
   font-size: 3em;
   font-family: Georgia, 'Times New Roman', Times, serif;
   color: var(--input-text-color);

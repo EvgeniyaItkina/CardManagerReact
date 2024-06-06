@@ -55,12 +55,39 @@ export const validateUrl = (url) => {
   return '';
 };
 
-export const validateAddressField = (field) => {
-  if (!field) {
-    return 'This field is required';
+export const validateState = (state) => {
+  if (state && (state.length < 2 || state.length > 256)) {
+    return 'State must be between 2 and 256 characters';
   }
-  if (field.length < 2 || field.length > 256) {
-    return 'Field must be between 2 and 256 characters';
+  return '';
+};
+
+export const validateCountry = (country) => {
+  if (!country) {
+    return 'Country is required';
+  }
+  if (country.length < 2 || country.length > 256) {
+    return 'Country must be between 2 and 256 characters';
+  }
+  return '';
+};
+
+export const validateCity = (city) => {
+  if (!city) {
+    return 'City is required';
+  }
+  if (city.length < 2 || city.length > 256) {
+    return 'City must be between 2 and 256 characters';
+  }
+  return '';
+};
+
+export const validateStreet = (street) => {
+  if (!street) {
+    return 'Street is required';
+  }
+  if (street.length < 2 || street.length > 256) {
+    return 'Street must be between 2 and 256 characters';
   }
   return '';
 };
@@ -88,6 +115,36 @@ export const validateZip = (zip) => {
 export const validateBoolean = (bool) => {
   if (typeof bool !== 'boolean') {
     return 'This field is required';
+  }
+  return '';
+};
+
+export const validateCardTitle = (title) => {
+  if (!title) {
+    return 'Title is required';
+  }
+  if (title.length < 2 || title.length > 256) {
+    return 'Title must be between 2 and 256 characters';
+  }
+  return '';
+};
+
+export const validateCardSubtitle = (subtitle) => {
+  if (!subtitle) {
+    return 'Subtitle is required';
+  }
+  if (subtitle.length < 2 || subtitle.length > 256) {
+    return 'Subtitle must be between 2 and 256 characters';
+  }
+  return '';
+};
+
+export const validateCardDescription = (description) => {
+  if (!description) {
+    return 'Description is required';
+  }
+  if (description.length < 2 || description.length > 1024) {
+    return 'Description must be between 2 and 1024 characters';
   }
   return '';
 };

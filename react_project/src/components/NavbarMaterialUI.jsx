@@ -267,7 +267,6 @@ function NavbarMaterialUI() {
           <Box sx={userState ? { display: 'flex', flexGrow: 0 } : { display: 'none' }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {/* НАЙДИ И ЗАМЕНИ КАРТИНКУ!!!!!!!!!! */}
                 <Avatar alt="Label" src="/favicon.ico" />
               </IconButton>
             </Tooltip>
