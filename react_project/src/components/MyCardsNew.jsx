@@ -80,9 +80,15 @@ const MyCardsNew = () => {
         houseNumber: data.houseNumber,
         zip: data.zip
       },
-
     }
-    apiCall(METHOD.CARDS_CREATE, payload);
+    const token = localStorage.getItem('token');
+    const header = {
+      headers: {
+        'x-auth-token': token,
+      }
+    };
+
+    apiCall(METHOD.CARDS_CREATE, payload, header);
 
   };
 
@@ -147,7 +153,7 @@ const MyCardsNew = () => {
   };
 
   if (isLoading) return <div>Loading...</div>;
-  if (successfulRegCreate) return <div className='successfulRegCreate'>You sre successfuly registratied. You need to Login!</div>
+  if (successfulRegCreate) return <div className='successfulRegCreate'>You sre successfuly create a new card</div>
 
   return (
     <div className="myCardsNew-container">

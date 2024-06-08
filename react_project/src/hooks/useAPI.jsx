@@ -9,7 +9,7 @@ const useAPI = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState();
 
-  const apiCall = useCallback(async (method, payload) => {
+  const apiCall = useCallback(async (method, payload = {}, header = {}) => {
     try {
       setIsLoading(true);
       let response;
@@ -23,9 +23,11 @@ const useAPI = () => {
           response = await axios.get(`${baseCardsURL}/${id}`);
           break;
         case METHOD.CARDS_CREATE:
-          response = await axios.post(baseCardsURL, payload);
+          response = await axios.post(baseCardsURL, payload, header);
           break;
-
+        case METHOD.CARDS_GET_MY_CARDS:
+          response = await axios.get(`${baseCardsURL}/my-cards`, header);
+          break;
         case METHOD.USER_REGISTER:
           response = await axios.post(baseUsersURL, payload);
           break;
@@ -55,14 +57,11 @@ export const METHOD = {
   CARDS_CREATE: 'CARDS_CREATE',
   CARDS_DELETE: 'CARDS_DELETE',
   CARDS_UPDATE: 'CARDS_UPDATE',
+  CARDS_GET_MY_CARDS: 'CARDS_GET_MY_CARDS',
 
   USERS_GET_ALL: 'USERS_GET_ALL',
   USERS_GET_ONE: 'USERS_GET_ONE',
   USER_REGISTER: "USER_REGISTER",
   USER_LOGIN: "USER_LOGIN",
-
-  CREATE: 'CREATE',
-  UPDATE: 'UPDATE',
-  DELETE: 'DELETE'
 };
 export default useAPI;

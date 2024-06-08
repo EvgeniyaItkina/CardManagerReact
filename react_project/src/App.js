@@ -13,17 +13,21 @@ import CardView from './components/CardView';
 import MyCardsNew from './components/MyCardsNew';
 import MyCardsEdit from './components/MyCardsEdit';
 import MyCardsDelete from './components/MyCardsDelete';
+import { useState } from 'react';
+
 
 function App() {
+  const [searchText, setSearchText] = useState('');
+
   return (
     <div className="App">
       <Provider store={Store}>
         <BrowserRouter>
-          <NavbarMaterialUI />
+          <NavbarMaterialUI onSearch={setSearchText} />
           <nav className="horizontal-nav">
           </nav>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home searchText={searchText} />} />
             <Route path="/about" element={<About />} />
             <Route path="/favCards" element={<FavCards />} />
             <Route path="/myCards" element={<MyCards />} />

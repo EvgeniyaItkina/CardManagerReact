@@ -1,4 +1,4 @@
-.my_registration_container {
+.myCardsNew-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,7 +12,7 @@
   font-size: 3em;
   font-family: Georgia, 'Times New Roman', Times, serif;
   color: var(--input-text-color);
-  margin-top: 20px;
+  margin-top: 40px;
   margin-bottom: 20px;
 }
 
@@ -73,19 +73,10 @@
   color: white;
 }
 
-.my_checkbox {
-  color: #f5f7f5;
-  font-size: 25px;
-}
-
-.my_checkbox .Mui-checked {
-  color: #3a3f3b;
-}
-
 .my_button {
   margin-right: 20px !important;
 }
-.successfulReg {
+.successfulRegCreate {
   position: fixed;
   top: 50%;
   left: 50%;

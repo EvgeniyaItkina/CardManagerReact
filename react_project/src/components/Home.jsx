@@ -10,8 +10,9 @@ import likeIcon from '../images/like.png';
 import likeRedIcon from '../images/like_red.png';
 
 
-const Home = (search) => {
+const Home = ({ searchText }) => {
   const [listOfCards, setListOfCards] = useState([]);
+  const [filteredCards, setFilteredCards] = useState([]);
   const [likedCards, setLikedCards] = useState([]);
   const [data, error, isLoading, apiCall] = useAPI();
   const [showPhone, setShowPhone] = useState({ visible: false, phone: '' });
@@ -27,6 +28,19 @@ const Home = (search) => {
       setListOfCards(data);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (searchText && typeof searchText === 'string') {
+      const filtered = listOfCards.filter(card =>
+        card.title.toLowerCase().includes(searchText.toLowerCase()) /* ||
+        card.subtitle.toLowerCase().includes(searchText.toLowerCase()) ||
+        card.description.toLowerCase().includes(searchText.toLowerCase()) */
+      );
+      setFilteredCards(filtered);
+    } else {
+      setFilteredCards(listOfCards);
+    }
+  }, [searchText, listOfCards]);
 
   const handleLike = (cardId) => {
     setLikedCards(prevLikedCards => {
@@ -56,7 +70,7 @@ const Home = (search) => {
         Home Page
       </Typography>
       <Grid container spacing={4}>
-        {listOfCards.map((card) => (
+        {filteredCards.map((card) => (
           <Grid item key={card._id} xs={12} sm={6} md={4}>
             <Card className="card-item">
               <CardActionArea component={Link} to={`/cardview/${card._id}`}>

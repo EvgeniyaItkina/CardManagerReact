@@ -33,7 +33,7 @@ let buttons = [
   { name: 'Registration', path: '/registration' },
 ];
 
-function NavbarMaterialUI() {
+function NavbarMaterialUI({ onSearch }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [search, setSearch] = useState('');
@@ -45,7 +45,6 @@ function NavbarMaterialUI() {
 
   if (userState && userState.isBusiness && !userState.isAdmin
   ) {
-    console.log("userState:", userState);
     pages = [
       { name: 'About', path: '/about' },
       { name: 'Fav Cards', path: '/favCards' },
@@ -84,13 +83,15 @@ function NavbarMaterialUI() {
   }
 
   const handleSearchChange = (event) => {
-    setSearch(event.target.value);
+    /* setSearch(event.target.value); */
+    const value = event.target.value;
+    setSearch(value);
+    onSearch(value);
+
   };
 
   const handleSearchSubmit = (event) => {
     event.preventDefault();
-    console.log('Поиск по:', search);
-    // Добавьте логику для выполнения поиска или фильтрации
   };
 
 
@@ -111,12 +112,10 @@ function NavbarMaterialUI() {
   }
 
   const handleUserLogout = () => {
-    console.log("handleUserLogout");
     dispatch(logout());
     handleCloseUserMenu();
 
   };
-  console.log("logout:", userState);
 
   return (
     <AppBar position="static" className="my_navbar">
