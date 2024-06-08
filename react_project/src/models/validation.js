@@ -103,9 +103,6 @@ export const validateHouseNumber = (houseNumber) => {
 };
 
 export const validateZip = (zip) => {
-  if (!zip) {
-    return 'ZIP Code is required';
-  }
   if (isNaN(zip) || zip < 2 || zip > 256) {
     return 'ZIP Code must be a number between 2 and 256';
   }

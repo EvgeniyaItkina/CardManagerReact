@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Grid, Typography, IconButton, Button, CardMedia } from '@mui/material';
+import { Container, Grid, Typography, Button, CardMedia } from '@mui/material';
 import { Link } from 'react-router-dom';
 import useAPI, { METHOD } from '../hooks/useAPI';
 import callIcon from '../images/call.png';
