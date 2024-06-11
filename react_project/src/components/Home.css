@@ -7,6 +7,16 @@
   margin-top: 20px;
 }
 
+  .my_container h2 {
+  font-size: 3em;
+  margin-bottom: 20px;
+}
+
+.my_home_container {
+  height: 100vh;  
+  margin: 100px 25% ;
+  
+  }
 .card-item {
   position: relative;
   border-radius: 15px;

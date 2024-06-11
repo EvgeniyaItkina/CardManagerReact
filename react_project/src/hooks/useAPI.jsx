@@ -28,6 +28,14 @@ const useAPI = () => {
         case METHOD.CARDS_GET_MY_CARDS:
           response = await axios.get(`${baseCardsURL}/my-cards`, header);
           break;
+        case METHOD.CARDS_DELETE:
+          response = await axios.delete(`${baseCardsURL}/${payload.id}`, header);
+          break;
+        case METHOD.CARDS_UPDATE:
+          const { id: updateId, ...updatePayload } = payload;
+          response = await axios.put(`${baseCardsURL}/${updateId}`, updatePayload, header);
+          break;
+
         case METHOD.USER_REGISTER:
           response = await axios.post(baseUsersURL, payload);
           break;
@@ -55,9 +63,9 @@ export const METHOD = {
   CARDS_GET_ALL: 'CARDS_GET_ALL',
   CARDS_GET_ONE: 'CARDS_GET_ONE',
   CARDS_CREATE: 'CARDS_CREATE',
-  CARDS_DELETE: 'CARDS_DELETE',
   CARDS_UPDATE: 'CARDS_UPDATE',
   CARDS_GET_MY_CARDS: 'CARDS_GET_MY_CARDS',
+  CARDS_DELETE: 'CARDS_DELETE',
 
   USERS_GET_ALL: 'USERS_GET_ALL',
   USERS_GET_ONE: 'USERS_GET_ONE',

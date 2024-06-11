@@ -17,8 +17,6 @@ const MyCards = () => {
   const [likedCards, setLikedCards] = useState([]);
   const userState = useSelector(store => store.user);
 
-  console.log("MyCards useAPI", data);
-
   const token = localStorage.getItem('token');
   useEffect(() => {
     if (token) {

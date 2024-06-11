@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Grid, Card, CardContent, CardMedia, Typography, CardActionArea, Button } from '@mui/material';
+import { Grid, Card, CardContent, CardMedia, Typography, CardActionArea, Button } from '@mui/material';
 import useAPI, { METHOD } from '../hooks/useAPI';
 import './Home.css';
 
@@ -65,11 +65,9 @@ const Home = ({ searchText }) => {
   if (listOfCards.length < 1) return <div>No results found</div>;
 
   return (
-    <Container className='my_container'>
-      <Typography variant="h4" gutterBottom >
-        Home Page
-      </Typography>
-      <Grid container spacing={4}>
+    <div className='my_container'>
+      <h2> Home Page </h2>
+      <Grid container spacing={4} className='my_home_container'>
         {filteredCards.map((card) => (
           <Grid item key={card._id} xs={12} sm={6} md={4}>
             <Card className="card-item">
@@ -128,7 +126,7 @@ const Home = ({ searchText }) => {
           </div>
         </div>
       )}
-    </Container>
+    </div>
   );
 };
 

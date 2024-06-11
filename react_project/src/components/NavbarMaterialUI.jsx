@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
@@ -40,7 +40,7 @@ function NavbarMaterialUI({ onSearch }) {
   const { mode, toggleTheme } = useTheme();
   const userState = useSelector(store => store.user)
   const dispatch = useDispatch()
-
+  const navigate = useNavigate();
 
 
   if (userState && userState.isBusiness && !userState.isAdmin
@@ -113,6 +113,7 @@ function NavbarMaterialUI({ onSearch }) {
 
   const handleUserLogout = () => {
     dispatch(logout());
+    navigate("/");
     handleCloseUserMenu();
 
   };

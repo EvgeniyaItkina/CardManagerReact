@@ -1,4 +1,5 @@
 .my_cards_container {
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,7 +17,7 @@
 }
 
 .css-pzx7qb-MuiButtonBase-root-MuiButton-root {
-margin-bottom: 20px;
+margin: 0 0 20px 0 !important;
 }
 .my_cards_grid{
   margin-top: 20px;

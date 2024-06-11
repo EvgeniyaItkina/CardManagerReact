@@ -25,8 +25,6 @@ const Login = () => {
 
   useEffect(() => {
     if (data) {
-      console.log("login data:", data);
-      // Handle successful login
       setSuccessfulReg(true);
       dispatch(login(data))
       setTimeout(() => {
@@ -84,8 +82,7 @@ const Login = () => {
   };
 
   if (isLoading) return <div>Loading...</div>;
-/*   if (error) return <div>Error: {error}</div>;
- */  if (successfulReg) {
+  if (successfulReg) {
     return <div className='successfulReg'>You sre successfuly login</div>
   }
 
