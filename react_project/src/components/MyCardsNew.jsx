@@ -153,7 +153,7 @@ const MyCardsNew = () => {
   };
 
   if (isLoading) return <div>Loading...</div>;
-  if (successfulRegCreate) return <div className='successfulRegCreate'>You sre successfuly create a new card</div>
+  if (successfulRegCreate) return <div className='successfulRegCreate'>You have successfuly created a new card</div>
 
   return (
     <div className="myCardsNew-container">

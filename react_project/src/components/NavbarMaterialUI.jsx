@@ -62,7 +62,7 @@ function NavbarMaterialUI({ onSearch }) {
     buttons = [];
   }
 
-  if (userState && userState.isBusiness && userState.isAdmin) {
+  if (userState && userState.isAdmin) {
     console.log("userState:", userState);
     pages = [
       { name: 'About', path: '/about' },

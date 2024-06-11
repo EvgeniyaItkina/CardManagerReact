@@ -14,7 +14,13 @@
 .my_login_container {
 height: 100vh;  
 margin: 100px 25% ;
+}
 
+.login-container {
+  padding: 15px;
+  min-height: 100vh;
+  font-family: "Arial, sans-serif";
+  margin-top: 20px;
 }
 
 .login-container h2 {
@@ -32,18 +38,13 @@ margin: 100px 25% ;
  border: 1px solid var(--input-border-color); /* Граница */
  padding: 10px 15px; /* Внутренний отступ */
  font-size: 1em; /* Размер шрифта */
+ margin-bottom: 15px;
 }
 .my_input .MuiInputBase-input {
   color: black;
 }
 
 
-.my_button {
-margin-bottom: 20px; /* Отступ снизу */
-border-radius: 25px; /* Закругленные края */
-padding: 10px 20px; /* Внутренний отступ */
-font-size: 1em; /* Размер шрифта */
-}
 
 .successfulReg {
   position: fixed;

@@ -1,6 +1,8 @@
 .my_navbar {
   background: linear-gradient(45deg, #038a3c, #61e787);
   border-radius: 40px;
+position: absolute !important;
+top: 0 !important;
 }
 .my_navbar .MuiButtonBase-root {
   color: white;

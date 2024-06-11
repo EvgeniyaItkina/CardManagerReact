@@ -83,7 +83,7 @@ const Login = () => {
 
   if (isLoading) return <div>Loading...</div>;
   if (successfulReg) {
-    return <div className='successfulReg'>You sre successfuly login</div>
+    return <div className='successfulReg'>You are successfuly login</div>
   }
 
 
@@ -133,10 +133,18 @@ const Login = () => {
               )}
             />
           </Grid>
-          <Grid item xs={12}>
+          {/*  <div item xs={12}>
             <Button type="submit" variant="contained" color="primary" disabled={Object.keys(errors).length > 0} className='my_button'>Login</Button>
-            <Button type="button" variant="outlined" color="secondary" onClick={handleClear} className='my_button'>Clear</Button>
-          </Grid>
+            <Button type="button" variant="contained" color="primary" onClick={handleClear} className='my_button'>Clear</Button>
+
+            <button type="submit" color="primary" disabled={Object.keys(errors).length > 0} className='my_button'>Login</button>
+
+
+          </div> */}
+          <div className='my_button_container'>
+            <button type="submit" disabled={Object.keys(errors).length > 0} className='my_button primary'>Login</button>
+            <button type="button" onClick={handleClear} className='my_button secondary'>Clear</button>
+          </div>
         </Grid>
       </form>
       {formError && (

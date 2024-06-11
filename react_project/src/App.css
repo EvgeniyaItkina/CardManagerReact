@@ -26,7 +26,7 @@ body {
 }
 
 .App {
-  /* height: 100vh; */
+  padding-top: 64px;
   text-align: center;
   /* background: linear-gradient(45deg, #61e787, #7fd8be, #03a64e, #038a3c, #87e6a7); */
   background-color: var(--background-color); 
@@ -50,4 +50,31 @@ body {
 .card-item {
   background-color: var(--card-background-color);
   color: var(--card-text-color);
+}
+
+.my_button_container {
+  width: 100%;
+}
+
+.my_button {
+  margin: 10px 20px !important;
+  font-size: 1.3em;
+  padding: 10px 35px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 25px; /* Закругленные края */
+  cursor: pointer;
+  background-color: var(--background-color);
+}
+.my_button:hover {
+  opacity: 0.8;
+}
+
+.primary:hover {
+  background-color: rgb(39, 108, 39);
+  color: white;
+}
+
+.secondary:hover {
+  background-color: rgb(224, 93, 93);
+  color: white;
 }
