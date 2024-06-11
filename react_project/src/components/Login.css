@@ -12,13 +12,12 @@
 }
 
 .my_login_container {
-height: 100vh;  
-margin: 100px 25% ;
+margin: 40px 25% ;
 }
 
 .login-container {
   padding: 15px;
-  min-height: 100vh;
+  min-height: 88vh;
   font-family: "Arial, sans-serif";
   margin-top: 20px;
 }

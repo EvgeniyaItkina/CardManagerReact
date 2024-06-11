@@ -165,7 +165,7 @@ const RegisterForm = () => {
               render={({ field }) => (
                 <TextField
                   {...field}
-                  label="First Name*"
+                  label="First Name *"
                   variant="outlined"
                   fullWidth
                   error={!!errors.firstName}
@@ -185,7 +185,7 @@ const RegisterForm = () => {
               render={({ field }) => (
                 <TextField
                   {...field}
-                  label="Last Name*"
+                  label="Last Name *"
                   variant="outlined"
                   fullWidth
                   error={!!errors.lastName}
@@ -205,7 +205,7 @@ const RegisterForm = () => {
               render={({ field }) => (
                 <TextField
                   {...field}
-                  label="Email*"
+                  label="Email *"
                   variant="outlined"
                   fullWidth
                   error={!!errors.email}
@@ -241,7 +241,7 @@ const RegisterForm = () => {
               render={({ field }) => (
                 <TextField
                   {...field}
-                  label="Phone*"
+                  label="Phone *"
                   variant="outlined"
                   fullWidth
                   error={!!errors.phone}
@@ -261,7 +261,7 @@ const RegisterForm = () => {
               render={({ field }) => (
                 <TextField
                   {...field}
-                  label="Password*"
+                  label="Password *"
                   type="password"
                   variant="outlined"
                   fullWidth
@@ -321,7 +321,7 @@ const RegisterForm = () => {
               render={({ field }) => (
                 <TextField
                   {...field}
-                  label="Country *"
+                  label="Country  *"
                   variant="outlined"
                   fullWidth
                   error={!!errors.country}
@@ -436,10 +436,16 @@ const RegisterForm = () => {
               )}
             />
           </Grid>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <Button type="submit" variant="contained" color="primary" disabled={Object.keys(errors).length > 0} className='my_button'>Create</Button>
             <Button type="button" variant="outlined" color="secondary" onClick={handleClear} className='my_button'>Clear</Button>
-          </Grid>
+          </Grid> */}
+
+          <div className='my_button_container'>
+            <button type="submit" disabled={Object.keys(errors).length > 0} className='my_button primary'>Registration</button>
+            <button type="button" onClick={handleClear} className='my_button secondary'>Clear</button>
+          </div>
+
         </Grid>
       </form>
       {formError && (

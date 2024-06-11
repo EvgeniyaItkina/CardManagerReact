@@ -14,6 +14,7 @@ import MyCardsNew from './components/MyCardsNew';
 import MyCardsEdit from './components/MyCardsEdit';
 import MyCardsDelete from './components/MyCardsDelete';
 import { useState } from 'react';
+import Footer from './components/Footer';
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
             <Route path="//mycardsedit/:cardId" element={<MyCardsEdit />} />
             <Route path="/mycardsdelete/:cardId" element={<MyCardsDelete />} />
           </Routes>
+          <Footer />
         </BrowserRouter>
 
       </Provider>
