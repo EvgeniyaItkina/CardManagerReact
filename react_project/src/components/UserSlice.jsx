@@ -11,7 +11,7 @@ export const UserSlice = createSlice({
       console.log("state", state);
       localStorage.setItem('token', token);
       const userData = jwtDecode(action.payload)
-      return { ...state, ...userData };
+      return { ...state, ...userData, token };
     },
 
     logout: (state, action) => {

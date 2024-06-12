@@ -81,14 +81,8 @@ const MyCardsNew = () => {
         zip: data.zip
       },
     }
-    const token = localStorage.getItem('token');
-    const header = {
-      headers: {
-        'x-auth-token': token,
-      }
-    };
 
-    apiCall(METHOD.CARDS_CREATE, payload, header);
+    apiCall(METHOD.CARDS_CREATE, payload);
 
   };
 

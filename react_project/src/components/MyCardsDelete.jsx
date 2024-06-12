@@ -10,7 +10,6 @@ const MyCardsDelete = () => {
   const [data, error, isLoading, apiCall] = useAPI();
   const [successfulDelete, setSuccessDelete] = useState(false);
   const navigate = useNavigate();
-  const token = localStorage.getItem('token');
 
   useEffect(() => {
     apiCall(METHOD.CARDS_GET_ONE, { id: cardId });
@@ -22,18 +21,13 @@ const MyCardsDelete = () => {
     }
   }, [data]);
 
-  const handleDelete = () => {
-    const header = {
-      headers: {
-        'x-auth-token': token,
-      }
-    };
-    apiCall(METHOD.CARDS_DELETE, { id: cardId }, header).then(() => {
-      setSuccessDelete(true);
-      setTimeout(() => {
-        navigate('/myCards');
-      }, 2000);
-    });
+  const handleDelete = async () => {
+
+    await apiCall(METHOD.CARDS_DELETE, { id: cardId })
+    setSuccessDelete(true);
+    setTimeout(() => {
+      navigate('/myCards');
+    }, 2000);
   };
 
   if (isLoading) return <div>Loading...</div>;

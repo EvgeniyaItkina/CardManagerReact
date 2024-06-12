@@ -9,6 +9,13 @@ import callIcon from '../images/call.png';
 import likeIcon from '../images/like.png';
 import likeRedIcon from '../images/like_red.png';
 
+const API_CASES = {
+  BASE_STATE: 'BASE_STATE',
+  CARDS_GET_ALL: 'CARDS_GET_ALL',
+  CARDS_LIKE_UNLIKE: 'CARDS_LIKE_UNLIKE'
+}
+
+let apiCase = API_CASES.CARDS_GET_ALL
 
 const Home = ({ searchText }) => {
   const [listOfCards, setListOfCards] = useState([]);
@@ -19,15 +26,37 @@ const Home = ({ searchText }) => {
   const userState = useSelector(store => store.user);
 
   useEffect(() => {
+    apiCase = API_CASES.CARDS_GET_ALL;
     apiCall(METHOD.CARDS_GET_ALL);
   }, [apiCall]);
 
   useEffect(() => {
-    if (data) {
-      console.log(data);
-      setListOfCards(data);
+    switch (apiCase) {
+      case API_CASES.BASE_STATE:
+        break;
+      case API_CASES.CARDS_GET_ALL:
+        if (data) {
+          data.forEach((card) => {
+            if (userState && card.likes.includes(userState._id)) {
+              card.liked = true
+            } else {
+              card.liked = false;
+            }
+          })
+          setListOfCards(data);
+          apiCase = API_CASES.BASE_STATE
+
+        }
+        break;
+      case API_CASES.CARDS_LIKE_UNLIKE:
+        console.log('after', data);
+        apiCase = API_CASES.CARDS_GET_ALL;
+        apiCall(METHOD.CARDS_GET_ALL);
+        break;
+      default:
+        break;
     }
-  }, [data]);
+  }, [data, userState, apiCall]);
 
   useEffect(() => {
     if (searchText && typeof searchText === 'string') {
@@ -42,7 +71,14 @@ const Home = ({ searchText }) => {
     }
   }, [searchText, listOfCards]);
 
-  const handleLike = (cardId) => {
+  const handleLike = (cardId, card) => {
+    console.log('before', card);
+    const payload = {
+      id: cardId
+    }
+    apiCase = API_CASES.CARDS_LIKE_UNLIKE;
+    apiCall(METHOD.CARDS_LIKE_UNLIKE, payload)
+
     setLikedCards(prevLikedCards => {
       if (prevLikedCards.includes(cardId)) {
         return prevLikedCards.filter(id => id !== cardId);
@@ -104,8 +140,8 @@ const Home = ({ searchText }) => {
                   <img src={callIcon} alt="Call" />
                 </button>
                 {userState && (
-                  <button onClick={() => handleLike(card._id)} className="icon-button">
-                    <img src={likedCards.includes(card._id) ? likeRedIcon : likeIcon} alt="Like" />
+                  <button onClick={() => handleLike(card._id, card)} className="icon-button">
+                    <img src={card.liked ? likeRedIcon : likeIcon} alt="Like" />
                   </button>
                 )}
 

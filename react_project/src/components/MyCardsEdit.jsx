@@ -59,7 +59,7 @@ const MyCardsEdit = () => {
     }
   }, [error]);
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     if (!data.title || !data.subtitle || !data.description || !data.phone ||
       !data.email || !data.country || !data.city || !data.street || !data.houseNumber) {
       setFormError('Fill the form');
@@ -87,19 +87,13 @@ const MyCardsEdit = () => {
         zip: data.zip
       }
     };
-    const token = localStorage.getItem('token');
-    const header = {
-      headers: {
-        'x-auth-token': token,
-      }
-    };
 
-    apiCall(METHOD.CARDS_UPDATE, { id: cardId, ...payload }, header).then(() => {
-      setUpdateSuccess(true);
-      setTimeout(() => {
-        navigate("/myCards");
-      }, 2000);
-    });
+
+    await apiCall(METHOD.CARDS_UPDATE, { id: cardId, ...payload });
+    setUpdateSuccess(true);
+    setTimeout(() => {
+      navigate("/myCards");
+    }, 2000);
   };
 
   const closeModal = () => {

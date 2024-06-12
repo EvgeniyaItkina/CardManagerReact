@@ -42,7 +42,6 @@ function NavbarMaterialUI({ onSearch }) {
   const dispatch = useDispatch()
   const navigate = useNavigate();
 
-
   if (userState && userState.isBusiness && !userState.isAdmin
   ) {
     pages = [
@@ -54,7 +53,6 @@ function NavbarMaterialUI({ onSearch }) {
   }
 
   if (userState && !userState.isBusiness && !userState.isAdmin) {
-    console.log("userState:", userState);
     pages = [
       { name: 'About', path: '/about' },
       { name: 'Fav Cards', path: '/favCards' },
@@ -83,11 +81,12 @@ function NavbarMaterialUI({ onSearch }) {
   }
 
   const handleSearchChange = (event) => {
-    /* setSearch(event.target.value); */
-    const value = event.target.value;
-    setSearch(value);
-    onSearch(value);
 
+    const value = event.target.value;
+    if (typeof value === 'string') {
+      setSearch(value);
+      onSearch(value);
+    }
   };
 
   const handleSearchSubmit = (event) => {

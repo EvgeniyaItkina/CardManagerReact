@@ -9,8 +9,14 @@ const useAPI = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState();
 
-  const apiCall = useCallback(async (method, payload = {}, header = {}) => {
+  const apiCall = useCallback(async (method, payload = {}, /* header = {} */) => {
     try {
+      const token = localStorage.getItem('token');
+      const header = {
+        headers: {
+          'x-auth-token': token,
+        }
+      };
       setIsLoading(true);
       let response;
 
@@ -34,6 +40,9 @@ const useAPI = () => {
         case METHOD.CARDS_UPDATE:
           const { id: updateId, ...updatePayload } = payload;
           response = await axios.put(`${baseCardsURL}/${updateId}`, updatePayload, header);
+          break;
+        case METHOD.CARDS_LIKE_UNLIKE:
+          response = await axios.patch(`${baseCardsURL}/${payload.id}`, {}, header);
           break;
 
         case METHOD.USER_REGISTER:
@@ -66,6 +75,7 @@ export const METHOD = {
   CARDS_UPDATE: 'CARDS_UPDATE',
   CARDS_GET_MY_CARDS: 'CARDS_GET_MY_CARDS',
   CARDS_DELETE: 'CARDS_DELETE',
+  CARDS_LIKE_UNLIKE: 'CARDS_LIKE_UNLIKE',
 
   USERS_GET_ALL: 'USERS_GET_ALL',
   USERS_GET_ONE: 'USERS_GET_ONE',
