@@ -21,7 +21,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import { useTheme } from '../context/ThemeContext';
 import './NavbarMaterialUI.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from './UserSlice';
+import { login, logout } from './UserSlice';
 import { useState } from 'react';
 
 
@@ -42,6 +42,12 @@ function NavbarMaterialUI({ onSearch }) {
   const dispatch = useDispatch()
   const navigate = useNavigate();
 
+  if (!userState) {
+    const token = localStorage.getItem('token');
+    if (token) {
+      dispatch(login(token))
+    }
+  }
   if (userState && userState.isBusiness && !userState.isAdmin
   ) {
     pages = [

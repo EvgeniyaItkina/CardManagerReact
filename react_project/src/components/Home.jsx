@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import callIcon from '../images/call.png';
 import likeIcon from '../images/like.png';
 import likeRedIcon from '../images/like_red.png';
+import deleteIcon from '../images/delete_bin.png';
 
 const API_CASES = {
   BASE_STATE: 'BASE_STATE',
@@ -20,10 +21,12 @@ let apiCase = API_CASES.CARDS_GET_ALL
 const Home = ({ searchText }) => {
   const [listOfCards, setListOfCards] = useState([]);
   const [filteredCards, setFilteredCards] = useState([]);
-  const [likedCards, setLikedCards] = useState([]);
   const [data, error, isLoading, apiCall] = useAPI();
   const [showPhone, setShowPhone] = useState({ visible: false, phone: '' });
   const userState = useSelector(store => store.user);
+
+
+
 
   useEffect(() => {
     apiCase = API_CASES.CARDS_GET_ALL;
@@ -49,7 +52,6 @@ const Home = ({ searchText }) => {
         }
         break;
       case API_CASES.CARDS_LIKE_UNLIKE:
-        console.log('after', data);
         apiCase = API_CASES.CARDS_GET_ALL;
         apiCall(METHOD.CARDS_GET_ALL);
         break;
@@ -59,11 +61,9 @@ const Home = ({ searchText }) => {
   }, [data, userState, apiCall]);
 
   useEffect(() => {
-    if (searchText && typeof searchText === 'string') {
+    if (searchText) {
       const filtered = listOfCards.filter(card =>
-        card.title.toLowerCase().includes(searchText.toLowerCase()) /* ||
-        card.subtitle.toLowerCase().includes(searchText.toLowerCase()) ||
-        card.description.toLowerCase().includes(searchText.toLowerCase()) */
+        card.title.toLowerCase().includes(searchText.toLowerCase())
       );
       setFilteredCards(filtered);
     } else {
@@ -71,21 +71,12 @@ const Home = ({ searchText }) => {
     }
   }, [searchText, listOfCards]);
 
-  const handleLike = (cardId, card) => {
-    console.log('before', card);
+  const handleLike = (cardId) => {
     const payload = {
       id: cardId
     }
     apiCase = API_CASES.CARDS_LIKE_UNLIKE;
     apiCall(METHOD.CARDS_LIKE_UNLIKE, payload)
-
-    setLikedCards(prevLikedCards => {
-      if (prevLikedCards.includes(cardId)) {
-        return prevLikedCards.filter(id => id !== cardId);
-      } else {
-        return [...prevLikedCards, cardId];
-      }
-    });
   };
 
   const handleShowPhone = (phone) => {
@@ -144,7 +135,13 @@ const Home = ({ searchText }) => {
                     <img src={card.liked ? likeRedIcon : likeIcon} alt="Like" />
                   </button>
                 )}
-
+                {userState && userState.isAdmin &&
+                  <Link to={`/mycardsdelete/${card._id}`}>
+                    <button className="icon-button">
+                      <img src={deleteIcon} alt="Delete" />
+                    </button>
+                  </Link>
+                }
               </div>
 
             </Card>

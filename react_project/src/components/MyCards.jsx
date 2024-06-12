@@ -19,14 +19,7 @@ const MyCards = () => {
 
   const token = localStorage.getItem('token');
   useEffect(() => {
-    if (token) {
-      const header = {
-        headers: {
-          'x-auth-token': token,
-        }
-      };
-      apiCall(METHOD.CARDS_GET_MY_CARDS, {}, header);
-    }
+    apiCall(METHOD.CARDS_GET_MY_CARDS);
   }, [token, apiCall]);
 
   useEffect(() => {
