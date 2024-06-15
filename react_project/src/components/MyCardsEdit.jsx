@@ -1,4 +1,3 @@
-import './MyCardsNew.css';
 import React, { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
@@ -157,12 +156,12 @@ const MyCardsEdit = () => {
   };
 
   if (isLoading) return <div>Loading...</div>;
-  if (updateSuccess) return <div className='successfulRegCreate'>Your card has been successfully updated</div>;
+  if (updateSuccess) return <div className='successfulMess'>Your card has been successfully updated</div>;
 
   return (
-    <div className="myCardsNew-container">
+    <div className="my_cards_container">
       <h2>Form to Edit Card</h2>
-      <form onSubmit={handleSubmit(onSubmit)} className='my_registration_container'>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
             <Controller
@@ -420,11 +419,10 @@ const MyCardsEdit = () => {
               )}
             />
           </Grid>
-
-          <Grid item xs={12}>
-            <Button type="submit" variant="contained" color="primary" disabled={Object.keys(errors).length > 0} className='my_button'>UpDate</Button>
-            <Button type="button" variant="outlined" color="secondary" onClick={handleClear} className='my_button'>Clear</Button>
-          </Grid>
+          <div className='my_button_container'>
+            <button type="submit" disabled={Object.keys(errors).length > 0} className='my_button primary'>UpDate</button>
+            <button type="button" onClick={handleClear} className='my_button secondary'>Clear</button>
+          </div>
         </Grid>
       </form>
       {formError && (

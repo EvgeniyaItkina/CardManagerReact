@@ -150,7 +150,7 @@ const RegisterForm = () => {
   };
 
   if (isLoading) return <div>Loading...</div>;
-  if (successfulReg) return <div className='successfulReg'>You sre successfuly registratied. You need to Login!</div>
+  if (successfulReg) return <div className='successfulMess'>You sre successfuly registratied. You need to Login!</div>
 
   return (
     <div className="registration-container">

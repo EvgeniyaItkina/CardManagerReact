@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Typography, Button, Card, CardContent, CardMedia } from '@mui/material';
 import useAPI, { METHOD } from '../hooks/useAPI';
-import './CardView.css';
 
 const CardView = () => {
   const { cardId } = useParams();

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Grid, Typography, Button, CardMedia } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Grid, Card, CardContent, CardMedia, Typography, CardActionArea, Button } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
 import useAPI, { METHOD } from '../hooks/useAPI';
 import callIcon from '../images/call.png';
 import likeIcon from '../images/like.png';
@@ -10,32 +10,70 @@ import editIcon from '../images/edit.png';
 import './MyCards.css';
 import { useSelector } from 'react-redux';
 
-const MyCards = () => {
-  const [cards, setCards] = useState([]);
+const API_CASES = {
+  BASE_STATE: 'BASE_STATE',
+  CARDS_GET_ALL_MY_CARDS: 'CARDS_GET_ALL_MY_CARDS',
+  CARDS_LIKE_UNLIKE: 'CARDS_LIKE_UNLIKE'
+}
+
+let apiCase = API_CASES.CARDS_GET_ALL_MY_CARDS
+
+const MyCards = ({ searchText }) => {
+  const [listOfCards, setListOfCards] = useState([]);
+  const [filteredCards, setFilteredCards] = useState([]);
   const [data, error, isLoading, apiCall] = useAPI();
   const [showPhone, setShowPhone] = useState({ visible: false, phone: '' });
-  const [likedCards, setLikedCards] = useState([]);
   const userState = useSelector(store => store.user);
+  const navigate = useNavigate();
 
-  const token = localStorage.getItem('token');
   useEffect(() => {
+    apiCase = API_CASES.CARDS_GET_ALL_MY_CARDS;
     apiCall(METHOD.CARDS_GET_MY_CARDS);
-  }, [token, apiCall]);
+  }, [apiCall]);
 
   useEffect(() => {
-    if (data) {
-      setCards(data);
+    switch (apiCase) {
+      case API_CASES.BASE_STATE:
+        break;
+      case API_CASES.CARDS_GET_ALL_MY_CARDS:
+        if (data) {
+          data.forEach((card) => {
+            if (userState && card.likes.includes(userState._id)) {
+              card.liked = true
+            } else {
+              card.liked = false;
+            }
+          })
+          setListOfCards(data);
+          apiCase = API_CASES.BASE_STATE
+        }
+        break;
+      case API_CASES.CARDS_LIKE_UNLIKE:
+        apiCase = API_CASES.CARDS_GET_ALL_MY_CARDS;
+        apiCall(METHOD.CARDS_GET_MY_CARDS);
+        break;
+      default:
+        break;
     }
-  }, [data]);
+  }, [data, userState, apiCall]);
+
+  useEffect(() => {
+    if (searchText) {
+      const filtered = listOfCards.filter(card =>
+        card.title.toLowerCase().includes(searchText.toLowerCase())
+      );
+      setFilteredCards(filtered);
+    } else {
+      setFilteredCards(listOfCards);
+    }
+  }, [searchText, listOfCards]);
 
   const handleLike = (cardId) => {
-    setLikedCards(prevLikedCards => {
-      if (prevLikedCards.includes(cardId)) {
-        return prevLikedCards.filter(id => id !== cardId);
-      } else {
-        return [...prevLikedCards, cardId];
-      }
-    });
+    const payload = {
+      id: cardId
+    }
+    apiCase = API_CASES.CARDS_LIKE_UNLIKE;
+    apiCall(METHOD.CARDS_LIKE_UNLIKE, payload)
   };
 
   const handleShowPhone = (phone) => {
@@ -46,18 +84,22 @@ const MyCards = () => {
     setShowPhone({ visible: false, phone: '' });
   };
 
+
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
-
   return (
-    <Container className="my_cards_container">
+    <div className="my_cards_container">
       <h2>My Cards</h2>
-      <Button variant="contained" color="primary" component={Link} to="/mycardsnew">Create New Card</Button>
-      <Grid container spacing={4} className="my_cards_grid" >
-        {cards && cards.length > 0 ? (
-          cards.map(card => (
-            <Grid item key={card._id} xs={12} sm={6} md={4}>
-              <div className="card-item">
+      {/* <Button variant="contained" color="primary" component={Link} to="/mycardsnew" className='my_button'>Create New Card</Button> */}
+      <button type="button" className="my_button primary" onClick={() => navigate('/mycardsnew')}>
+        Create New Card
+      </button>
+      <Grid container spacing={4} className='my_home_container'>
+        {filteredCards.map((card) => (
+          <Grid item key={card._id} xs={12} sm={6} md={4}>
+            <Card className="card-item">
+              <CardActionArea component={Link} to={`/cardview/${card._id}`}>
                 <CardMedia
                   component="img"
                   alt={card.image.alt}
@@ -65,41 +107,50 @@ const MyCards = () => {
                   image={card.image.url}
                   title={card.title}
                 />
-                <div className="card-header">
-                  <Typography variant="h5">{card.title}</Typography>
-                </div>
-                <div className="card-body">
-                  <Typography>{card.subtitle}</Typography>
-                  <Typography>{card.phone}</Typography>
-                </div>
-                <div className="card-footer">
-                  <div className="card-actions">
-                    <button onClick={() => handleShowPhone(card.phone)} className="icon-button">
-                      <img src={callIcon} alt="Call" />
-                    </button>
-                    {userState && (
-                      <button onClick={() => handleLike(card._id)} className="icon-button">
-                        <img src={likedCards.includes(card._id) ? likeRedIcon : likeIcon} alt="Like" />
-                      </button>
-                    )}
-                    <Link to={`/mycardsedit/${card._id}`}>
-                      <button className="icon-button">
-                        <img src={editIcon} alt="Edit" />
-                      </button>
-                    </Link>
-                    <Link to={`/mycardsdelete/${card._id}`}>
-                      <button className="icon-button">
-                        <img src={deleteIcon} alt="Delete" />
-                      </button>
-                    </Link>
-                  </div>
-                </div>
+
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {card.title}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    {card.subtitle}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    Phone: {card.phone}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    Address: {card.address.city} {card.address.houseNumber}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    Card Number: {card.bizNumber}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+
+              <div className="card-actions">
+                <button onClick={() => handleShowPhone(card.phone)} className="icon-button">
+                  <img src={callIcon} alt="Call" />
+                </button>
+                {userState && (
+                  <button onClick={() => handleLike(card._id, card)} className="icon-button">
+                    <img src={card.liked ? likeRedIcon : likeIcon} alt="Like" />
+                  </button>
+                )}
+                <Link to={`/mycardsedit/${card._id}`}>
+                  <button className="icon-button">
+                    <img src={editIcon} alt="Edit" />
+                  </button>
+                </Link>
+                <Link to={`/mycardsdelete/${card._id}`}>
+                  <button className="icon-button">
+                    <img src={deleteIcon} alt="Delete" />
+                  </button>
+                </Link>
               </div>
-            </Grid>
-          ))
-        ) : (
-          <Typography>No cards found</Typography>
-        )}
+
+            </Card>
+          </Grid>
+        ))}
       </Grid>
       {showPhone.visible && (
         <div className="phone-popup">
@@ -111,7 +162,7 @@ const MyCards = () => {
           </div>
         </div>
       )}
-    </Container>
+    </div>
   );
 };
 

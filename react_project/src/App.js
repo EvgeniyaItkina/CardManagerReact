@@ -31,7 +31,7 @@ function App() {
             <Route path="/" element={<Home searchText={searchText} />} />
             <Route path="/about" element={<About />} />
             <Route path="/favCards" element={<FavCards searchText={searchText} />} />
-            <Route path="/myCards" element={<MyCards />} />
+            <Route path="/myCards" element={<MyCards searchText={searchText} />} />
             <Route path="/login" element={<Login />} />
             <Route path="/registration" element={<Registration />} />
             <Route path="/cardview/:cardId" element={<CardView />} />

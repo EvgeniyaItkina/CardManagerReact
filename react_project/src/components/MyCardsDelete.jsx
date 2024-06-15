@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Typography, Button, Card, CardContent, CardMedia } from '@mui/material';
+import { Container, Typography, Card, CardContent, CardMedia } from '@mui/material';
 import useAPI, { METHOD } from '../hooks/useAPI';
-import './MyCardsDelete.css';
 
 const MyCardsDelete = () => {
   const { cardId } = useParams();
@@ -34,11 +33,11 @@ const MyCardsDelete = () => {
   if (error) return <div>Error: {error}</div>;
   if (!card) return <div>No card details found</div>;
   if (successfulDelete) {
-    return <div className='successfulDelete'>Your Card successfully deleted</div>
+    return <div className='successfulMess'>Your Card successfully deleted</div>
   }
 
   return (
-    <Container className="card-detail-container">
+    <Container className="my_cards_container">
       <Card className="card-detail">
         <CardMedia
           component="img"
@@ -76,12 +75,15 @@ const MyCardsDelete = () => {
       </Card>
       <div className="delete-confirmation">
         <Typography variant="h6">Are you sure you want to delete this card?</Typography>
-        <Button variant="contained" color="secondary" onClick={handleDelete}>Delete</Button>
-        <Button variant="contained" color="primary" onClick={() => navigate('/myCards')}>Cancel</Button>
+        <div className='my_button_container'>
+          <button type="submit" onClick={handleDelete} className='my_button primary'>Delete</button>
+          <button type="button" onClick={() => navigate('/myCards')} className='my_button secondary'>Cancel</button>
+        </div>
+
       </div>
 
       {successfulDelete && (
-        <div className="successfulDelete">
+        <div className="successfulMess">
           <Typography variant="h6">{successfulDelete}</Typography>
         </div>
       )}

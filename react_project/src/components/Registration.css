@@ -1,12 +1,7 @@
 .my_registration_container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: linear-gradient(135deg, #a8edea, #0f9b0f);
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 0 4vw;
 }
+
 .registration-container h2 {
   font-size: 3em;
   font-family: Georgia, 'Times New Roman', Times, serif;
@@ -15,62 +10,6 @@
   margin-bottom: 20px;
 }
 
-.my_input .MuiInputBase-root {
-  background: white;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.my_input .MuiInputBase-root:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.my_input .MuiFormLabel-root {
-  color: #0f9b0f;
-  font-weight: bold;
-}
-
-.my_input .MuiOutlinedInput-notchedOutline {
-  border-color: #b0c4de;
-}
-
-.my_input .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-  border-color: #0f9b0f;
-  box-shadow: 0 0 5px #0f9b0f;
-}
-
-.my_input .MuiFormHelperText-root {
-  color: #f44336;
-  font-size: 0.8em;
-}
-
-.MuiButton-containedPrimary {
-  background: linear-gradient(135deg, #66bb6a, #388e3c);
-  color: white;
-  font-weight: bold;
-  padding: 10px 20px;
-  border-radius: 5px;
-  transition: all 0.3s ease;
-}
-
-.MuiButton-containedPrimary:hover {
-  background: linear-gradient(135deg, #388e3c, #66bb6a);
-}
-
-.MuiButton-outlinedSecondary {
-  border-color: #388e3c;
-  color: #388e3c;
-  font-weight: bold;
-  padding: 10px 20px;
-  border-radius: 5px;
-  transition: all 0.3s ease;
-}
-
-.MuiButton-outlinedSecondary:hover {
-  background: #388e3c;
-  color: white;
-}
 
 .my_checkbox {
   color: #f5f7f5;
@@ -79,19 +18,4 @@
 
 .my_checkbox .Mui-checked {
   color: #3a3f3b;
-}
-
-.successfulReg {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #4caf50; /* Green background */
-  color: white; /* White text */
-  padding: 20px;
-  border-radius: 30px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  font-size: 1.5em;
-  z-index: 1000;
 }
