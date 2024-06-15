@@ -9,7 +9,7 @@ const useAPI = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState();
 
-  const apiCall = useCallback(async (method, payload = {}, /* header = {} */) => {
+  const apiCall = useCallback(async (method, payload = {}) => {
     try {
       const token = localStorage.getItem('token');
       const header = {
@@ -51,6 +51,14 @@ const useAPI = () => {
         case METHOD.USER_LOGIN:
           response = await axios.post(`${baseUsersURL}/login`, payload);
           break;
+        case METHOD.USERS_GET_ONE:
+          response = await axios.get(`${baseUsersURL}/${payload.id}`, header);
+          break;
+        case METHOD.USERS_UPDATE:
+          const userID = payload.id;
+          delete payload.id;
+          response = await axios.put(`${baseUsersURL}/${userID}`, payload, header);
+          break;
 
         // другие методы
 
@@ -79,6 +87,7 @@ export const METHOD = {
 
   USERS_GET_ALL: 'USERS_GET_ALL',
   USERS_GET_ONE: 'USERS_GET_ONE',
+  USERS_UPDATE: 'USERS_UPDATE',
   USER_REGISTER: "USER_REGISTER",
   USER_LOGIN: "USER_LOGIN",
 };

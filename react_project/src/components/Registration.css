@@ -1,6 +1,9 @@
 .my_registration_container {
   margin: 0 4vw;
 }
+.registration_container {
+  padding-bottom: 9vh;
+}
 
 .registration-container h2 {
   font-size: 3em;

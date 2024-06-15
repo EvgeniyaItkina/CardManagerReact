@@ -123,6 +123,11 @@ function NavbarMaterialUI({ onSearch }) {
 
   };
 
+  const handleUserProfile = () => {
+    navigate("/profilechange");
+    handleCloseUserMenu();
+  }
+
   return (
     <AppBar position="static" className="my_navbar">
       <Container maxWidth="xl">
@@ -293,6 +298,9 @@ function NavbarMaterialUI({ onSearch }) {
             >
               <MenuItem key="Logout" onClick={handleUserLogout}>
                 <Typography textAlign="center">Logout</Typography>
+              </MenuItem>
+              <MenuItem key="Profile" onClick={handleUserProfile}>
+                <Typography textAlign="center">Profile</Typography>
               </MenuItem>
             </Menu>
           </Box>
