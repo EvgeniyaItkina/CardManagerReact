@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import callIcon from '../../images/call.png';
 import likeIcon from '../../images/like.png';
 import likeRedIcon from '../../images/like_red.png';
+import './FavCards.css';
 
 const API_CASES = {
   BASE_STATE: 'BASE_STATE',

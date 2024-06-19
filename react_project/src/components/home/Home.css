@@ -1,10 +1,23 @@
+:root {
+  --background-gradient-light: linear-gradient(135deg, #74c285, #0f9b0f);
+  --background-gradient-dark: linear-gradient(135deg, #1e3c72, #2a5298);
+  --popup-background-color: #ffffff;
+  --popup-text-color: #000000;
+}
+
+[data-theme="dark"] {
+  --background-gradient: var(--background-gradient-dark);
+  --popup-background-color: #25363e;
+  --popup-text-color: #ffffff;
+}
+
 .my_container {
-  background: linear-gradient(135deg, #74c285, #0f9b0f);
+  background: var(--background-gradient);
   padding: 15px;
   font-family: "Nothing You Could Do", cursive !important; 
   font-weight: 400;
   font-style: normal;
-  margin-top: 20px;
+  /* margin-top: 20px; */
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -19,8 +32,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: var(--popup-background-color, #ffffff); /* Фон модального окна */
-  color: var(--popup-text-color, #000000); /* Цвет текста в модальном окне */
+  background-color: var(--popup-background-color);
+  color: var(--popup-text-color); /* Цвет текста в модальном окне */
   padding: 20px;
   /* border: 1px solid #ccc; */
   border-radius: 8px;

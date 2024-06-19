@@ -96,7 +96,7 @@ const Home = ({ searchText }) => {
       <h2> Home Page </h2>
       <Grid container spacing={4}>
         {filteredCards.map((card) => (
-          <Grid item key={card._id} xs={12} sm={6} md={4}>
+          <Grid item key={card._id} xs={12} sm={6} md={4} lg={3}>
             <Card className="card-item">
               <CardActionArea component={Link} to={`/cardview/${card._id}`}>
                 <CardMedia
@@ -108,10 +108,20 @@ const Home = ({ searchText }) => {
                 />
 
                 <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
+                  <Typography gutterBottom variant="h5" component="div"
+                    style={{
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis'
+                    }}>
                     {card.title}
                   </Typography>
-                  <Typography variant="body2" color="textSecondary">
+                  <Typography variant="body2" color="textSecondary"
+                    style={{
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis'
+                    }}>
                     {card.subtitle}
                   </Typography>
                   <Typography variant="body2" color="textSecondary">

@@ -1,45 +1,42 @@
 :root {
-  --background-color: #4CAF50;
-  --header-background-color: #81c784; /* Светлый фон для заголовка */
-  --header-text-color: #2e7d32; /* Темный текст для заголовка */
-  --link-color: #388e3c; /* Цвет ссылок */
-  --text-color: #000000; /* Основной цвет текста */
-  --card-background-color: #ffffff; /* Фон карточек */
-  --card-text-color: #343a40; /* Текст на карточках */
-  --input-background-color: #ffffff; /* Светлый фон для полей ввода */
-  --input-text-color: #000000; /* Темный текст для полей ввода */
+  --primary-color: #4CAF50;
+  --secondary-color: #388e3c;
+  --link-color: #388e3c; 
+  --text-color: #000000; 
+  --card-background-color: #ffffff;
+  --card-text-color: #343a40; 
+  --input-background-color: #ffffff;
+  --input-text-color: #000000; 
   --input-border-color: #000000;
 }
 
 [data-theme="dark"] {
-  --background-color: #1b5e20;
-  --header-background-color: #37474f; /* Темный фон для заголовка */
-  --header-text-color: #ffffff; /* Светлый текст для заголовка */
-  --link-color: #81c784; /* Цвет ссылок */
-  --text-color: #ffffff; /* Основной цвет текста */
-  --card-background-color: #37474f; /* Фон карточек */
-  --card-text-color: #c8e6c9; /* Текст на карточках */
-  --input-background-color: #37474f; /* Темный фон для полей ввода */
-  --input-text-color: #ffffff; /* Светлый текст для полей ввода */
-  --input-border-color: #ffffff; /* Цвет границы для полей ввода */
+  --primary-color: #567498;
+  --secondary-color: #81c784;
+  --text-color: #ffffff; 
+  --card-background-color: #37474f; 
+  --card-text-color: #c8e6c9; 
+  --input-background-color: #25363e; 
+  --input-text-color: #ffffff; 
+  --input-border-color: #ffffff; 
 }
 
 body {
-  background: var(--background-color); /* Применяем градиент как фон */
+  background: var(--primary-color); 
   color: var(--text-color);
 }
 
 .App {
   padding-top: 10vh;
   text-align: center;
-  background-color: var(--background-color); 
+  background-color: var(--primary-color); 
+  padding-bottom: 10vh;
 }
 
 .my_input{
   border-radius:50px;
   background-color: var(--input-background-color); 
-  color: black;
- /*  border: 1px solid var(--input-border-color);  */
+  color: var(--input-text-color);
   padding: 10px 15px;
   font-size: 1em;
   margin-bottom: 15px;
@@ -98,7 +95,7 @@ body {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 25px; 
   cursor: pointer;
-  background-color: var(--background-color);
+  background-color: var(--primary-color);
 }
 
 .my_button:hover {
@@ -106,7 +103,7 @@ body {
 }
 
 .primary:hover {
-  background-color: rgb(39, 108, 39);
+  background-color: var(--secondary-color);
   color: white;
 }
 

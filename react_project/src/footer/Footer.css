@@ -1,5 +1,20 @@
+:root {
+  --footer-background-gradient-light: linear-gradient(45deg, #038a3c, #61e787);
+  --footer-background-gradient-dark: linear-gradient(45deg, #1e3c72, #2a5298);
+}
+
+[data-theme="dark"] {
+  --footer-background-gradient: var(--footer-background-gradient-dark);
+}
+
+[data-theme="light"] {
+  --footer-background-gradient: var(--footer-background-gradient-light);
+}
+
+
 footer {
-  background-color: #087b14;
+  background: var(--footer-background-gradient);
+  border-radius: 40px;
   color: white;
   padding: 4px 0;
   position: fixed;
@@ -25,7 +40,7 @@ footer .footer-icons .footer-icon-item {
 }
 
 footer .footer-icons .footer-icon-item:hover {
-  color: #ff4081; /* Цвет при наведении */
+  color: #ff4081;
 }
 
 footer .footer-icons img {

@@ -1,8 +1,7 @@
 .login-container {
-  padding: 15px;
+  padding-top: 3vh;
   min-height: 88vh;
   font-family: "Arial, sans-serif";
-  margin-top: 20px;
 }
 
 .login-container h2 {
