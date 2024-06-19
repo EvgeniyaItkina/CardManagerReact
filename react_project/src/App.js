@@ -15,6 +15,7 @@ import MyCardsEdit from './components/MyCardsEdit';
 import MyCardsDelete from './components/MyCardsDelete';
 import { useState } from 'react';
 import Footer from './components/Footer';
+import ProfileChange from './components/ProfileChange';
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
             <Route path="/mycardsnew" element={<MyCardsNew />} />
             <Route path="//mycardsedit/:cardId" element={<MyCardsEdit />} />
             <Route path="/mycardsdelete/:cardId" element={<MyCardsDelete />} />
+            <Route path="/profilechange" element={<ProfileChange />} />
           </Routes>
           <Footer />
         </BrowserRouter>
