@@ -18,10 +18,10 @@ import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { useTheme } from '../context/ThemeContext';
+import { useTheme } from '../../context/ThemeContext';
 import './NavbarMaterialUI.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { login, logout } from './UserSlice';
+import { login, logout } from '../UserSlice';
 import { useState } from 'react';
 
 

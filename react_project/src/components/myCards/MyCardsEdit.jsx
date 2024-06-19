@@ -3,7 +3,7 @@ import { useForm, Controller } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   validateEmail,
   validatePhone,
@@ -17,50 +17,56 @@ import {
   validateCardTitle,
   validateCardSubtitle,
   validateCardDescription
-} from '../models/validation';
-import useAPI, { METHOD } from '../hooks/useAPI';
+} from '../../models/validation';
+import useAPI, { METHOD } from '../../hooks/useAPI';
 import { Typography } from '@mui/material';
 
-
-const MyCardsNew = () => {
-  const { control, handleSubmit, formState: { errors }, setError, clearErrors, reset } = useForm();
+const MyCardsEdit = () => {
+  const { cardId } = useParams();
+  const { control, handleSubmit, formState: { errors }, setError, clearErrors, reset, setValue } = useForm();
   const [data, error, isLoading, apiCall] = useAPI();
-  const [successfulRegCreate, setsuccessfulRegCreate] = useState(false);
+  const [updateSuccess, setUpdateSuccess] = useState(false);
   const [formError, setFormError] = useState('');
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    apiCall(METHOD.CARDS_GET_ONE, { id: cardId });
+  }, [apiCall, cardId]);
 
   useEffect(() => {
     if (data) {
-      setsuccessfulRegCreate(true);
-      setTimeout(() => {
-        navigate("/myCards")
-      }, 2000);
+      setValue('title', data.title);
+      setValue('subtitle', data.subtitle);
+      setValue('description', data.description);
+      setValue('phone', data.phone);
+      setValue('email', data.email);
+      setValue('web', data.web);
+      setValue('imageUrl', data.image.url);
+      setValue('state', data.address.state);
+      setValue('country', data.address.country);
+      setValue('city', data.address.city);
+      setValue('street', data.address.street);
+      setValue('houseNumber', data.address.houseNumber);
+      setValue('zip', data.address.zip);
     }
-  }, [data, navigate]);
+  }, [data, setValue]);
 
   useEffect(() => {
     if (error) {
-      const errorMessage = error.response?.data?.message || 'Error: Create is failed. Please try again.';
+      const errorMessage = error.response?.data?.message || 'Error: Update failed. Please try again.';
       setFormError(errorMessage);
     }
   }, [error]);
 
-
-  const onSubmit = (data) => {
-    if (!data.title
-      || !data.subtitle
-      || !data.description
-      || !data.phone
-      || !data.email
-      || !data.country
-      || !data.city
-      || !data.street
-      || !data.houseNumber) {
+  const onSubmit = async (data) => {
+    if (!data.title || !data.subtitle || !data.description || !data.phone ||
+      !data.email || !data.country || !data.city || !data.street || !data.houseNumber) {
       setFormError('Fill the form');
       return;
     }
 
     const payload = {
+      id: cardId,
       title: data.title,
       subtitle: data.subtitle,
       description: data.description,
@@ -78,11 +84,15 @@ const MyCardsNew = () => {
         street: data.street,
         houseNumber: data.houseNumber,
         zip: data.zip
-      },
-    }
+      }
+    };
 
-    apiCall(METHOD.CARDS_CREATE, payload);
 
+    await apiCall(METHOD.CARDS_UPDATE, { id: cardId, ...payload });
+    setUpdateSuccess(true);
+    setTimeout(() => {
+      navigate("/myCards");
+    }, 2000);
   };
 
   const closeModal = () => {
@@ -146,11 +156,11 @@ const MyCardsNew = () => {
   };
 
   if (isLoading) return <div>Loading...</div>;
-  if (successfulRegCreate) return <div className='successfulMess'>You have successfuly created a new card</div>
+  if (updateSuccess) return <div className='successfulMess'>Your card has been successfully updated</div>;
 
   return (
     <div className="my_cards_container">
-      <h2>Form to Create New Card</h2>
+      <h2>Form to Edit Card</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
@@ -255,7 +265,7 @@ const MyCardsNew = () => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Controller
-              name="middleName"
+              name="web"
               control={control}
               defaultValue=""
               render={({ field }) => (
@@ -410,7 +420,7 @@ const MyCardsNew = () => {
             />
           </Grid>
           <div className='my_button_container'>
-            <button type="submit" disabled={Object.keys(errors).length > 0} className='my_button primary'>Create</button>
+            <button type="submit" disabled={Object.keys(errors).length > 0} className='my_button primary'>UpDate</button>
             <button type="button" onClick={handleClear} className='my_button secondary'>Clear</button>
           </div>
         </Grid>
@@ -429,4 +439,4 @@ const MyCardsNew = () => {
   );
 };
 
-export default MyCardsNew;
+export default MyCardsEdit

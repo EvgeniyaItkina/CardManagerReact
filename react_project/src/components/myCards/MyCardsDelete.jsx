@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Typography, Button, Card, CardContent, CardMedia } from '@mui/material';
-import useAPI, { METHOD } from '../hooks/useAPI';
+import { Container, Typography, Card, CardContent, CardMedia } from '@mui/material';
+import useAPI, { METHOD } from '../../hooks/useAPI';
 
-const CardView = () => {
+const MyCardsDelete = () => {
   const { cardId } = useParams();
   const [card, setCard] = useState(null);
   const [data, error, isLoading, apiCall] = useAPI();
+  const [successfulDelete, setSuccessDelete] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,12 +20,24 @@ const CardView = () => {
     }
   }, [data]);
 
+  const handleDelete = async () => {
+
+    await apiCall(METHOD.CARDS_DELETE, { id: cardId })
+    setSuccessDelete(true);
+    setTimeout(() => {
+      navigate('/myCards');
+    }, 2000);
+  };
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
   if (!card) return <div>No card details found</div>;
+  if (successfulDelete) {
+    return <div className='successfulMess'>Your Card successfully deleted</div>
+  }
 
   return (
-    <Container className="card-detail-container">
+    <Container className="my_cards_container">
       <Card className="card-detail">
         <CardMedia
           component="img"
@@ -58,14 +71,24 @@ const CardView = () => {
           <Typography variant="body2" color="textSecondary">
             Card Number: {card.bizNumber}
           </Typography>
-          <Button variant="contained" color="primary" onClick={() => navigate('/')}>
-            Back to Home
-          </Button>
         </CardContent>
       </Card>
+      <div className="delete-confirmation">
+        <Typography variant="h6">Are you sure you want to delete this card?</Typography>
+        <div className='my_button_container'>
+          <button type="submit" onClick={handleDelete} className='my_button primary'>Delete</button>
+          <button type="button" onClick={() => navigate('/myCards')} className='my_button secondary'>Cancel</button>
+        </div>
+
+      </div>
+
+      {successfulDelete && (
+        <div className="successfulMess">
+          <Typography variant="h6">{successfulDelete}</Typography>
+        </div>
+      )}
     </Container>
   );
 };
 
-export default CardView;
-
+export default MyCardsDelete;

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, Card, CardContent, CardMedia, Typography, CardActionArea, Button } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
-import useAPI, { METHOD } from '../hooks/useAPI';
-import callIcon from '../images/call.png';
-import likeIcon from '../images/like.png';
-import likeRedIcon from '../images/like_red.png';
-import deleteIcon from '../images/delete_bin.png';
-import editIcon from '../images/edit.png';
+import useAPI, { METHOD } from '../../hooks/useAPI';
+import callIcon from '../../images/call.png';
+import likeIcon from '../../images/like.png';
+import likeRedIcon from '../../images/like_red.png';
+import deleteIcon from '../../images/delete_bin.png';
+import editIcon from '../../images/edit.png';
 import './MyCards.css';
 import { useSelector } from 'react-redux';
 

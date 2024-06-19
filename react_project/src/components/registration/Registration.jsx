@@ -1,78 +1,77 @@
+import './Registration.css';
 import React, { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import { useNavigate, useParams } from 'react-router-dom';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import { useNavigate } from 'react-router-dom'
 import {
+  validateName,
   validateEmail,
   validatePhone,
+  validatePassword,
   validateUrl,
   validateState,
   validateCountry,
   validateCity,
   validateStreet,
   validateHouseNumber,
-  validateZip,
-  validateCardTitle,
-  validateCardSubtitle,
-  validateCardDescription
-} from '../models/validation';
-import useAPI, { METHOD } from '../hooks/useAPI';
+  validateZip
+} from '../../models/validation';
+import useAPI, { METHOD } from '../../hooks/useAPI';
 import { Typography } from '@mui/material';
 
-const MyCardsEdit = () => {
-  const { cardId } = useParams();
-  const { control, handleSubmit, formState: { errors }, setError, clearErrors, reset, setValue } = useForm();
-  const [data, error, isLoading, apiCall] = useAPI();
-  const [updateSuccess, setUpdateSuccess] = useState(false);
-  const [formError, setFormError] = useState('');
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    apiCall(METHOD.CARDS_GET_ONE, { id: cardId });
-  }, [apiCall, cardId]);
+const RegisterForm = () => {
+  const { control, handleSubmit, formState: { errors }, setError, clearErrors, reset } = useForm();
+  const [data, error, isLoading, apiCall] = useAPI();
+  const [successfulReg, setSuccessfulReg] = useState(false);
+  const [formError, setFormError] = useState('');
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (data) {
-      setValue('title', data.title);
-      setValue('subtitle', data.subtitle);
-      setValue('description', data.description);
-      setValue('phone', data.phone);
-      setValue('email', data.email);
-      setValue('web', data.web);
-      setValue('imageUrl', data.image.url);
-      setValue('state', data.address.state);
-      setValue('country', data.address.country);
-      setValue('city', data.address.city);
-      setValue('street', data.address.street);
-      setValue('houseNumber', data.address.houseNumber);
-      setValue('zip', data.address.zip);
+      console.log("registration data:", data);
+      setSuccessfulReg(true);
+      setTimeout(() => {
+        navigate("/")
+      }, 2000);
     }
-  }, [data, setValue]);
+  }, [data, navigate]);
 
   useEffect(() => {
     if (error) {
-      const errorMessage = error.response?.data?.message || 'Error: Update failed. Please try again.';
+      const errorMessage = error.response?.data?.message || 'Error: Registration failed. Please try again.';
       setFormError(errorMessage);
     }
   }, [error]);
 
-  const onSubmit = async (data) => {
-    if (!data.title || !data.subtitle || !data.description || !data.phone ||
-      !data.email || !data.country || !data.city || !data.street || !data.houseNumber) {
+
+  const onSubmit = (data) => {
+    if (!data.firstName
+      || !data.lastName
+      || !data.email
+      || !data.phone
+      || !data.password
+      || !data.country
+      || !data.city
+      || !data.street
+      || !data.houseNumber) {
       setFormError('Fill the form');
       return;
     }
 
     const payload = {
-      id: cardId,
-      title: data.title,
-      subtitle: data.subtitle,
-      description: data.description,
+      name: {
+        first: data.firstName,
+        middle: data.middleName,
+        last: data.lastName
+      },
       phone: data.phone,
       email: data.email,
-      web: data.web,
+      password: data.password,
       image: {
         url: data.imageUrl,
         alt: "card picture"
@@ -84,15 +83,11 @@ const MyCardsEdit = () => {
         street: data.street,
         houseNumber: data.houseNumber,
         zip: data.zip
-      }
-    };
+      },
+      isBusiness: data.isBusiness,
+    }
+    apiCall(METHOD.USER_REGISTER, payload);
 
-
-    await apiCall(METHOD.CARDS_UPDATE, { id: cardId, ...payload });
-    setUpdateSuccess(true);
-    setTimeout(() => {
-      navigate("/myCards");
-    }, 2000);
   };
 
   const closeModal = () => {
@@ -109,20 +104,18 @@ const MyCardsEdit = () => {
   const handleValidation = (name, value) => {
     let error = '';
     switch (name) {
-      case 'title':
-        error = validateCardTitle(value);
+      case 'firstName':
+      case 'lastName':
+        error = validateName(value);
         break;
-      case 'subtitle':
-        error = validateCardSubtitle(value);
-        break;
-      case 'description':
-        error = validateCardDescription(value);
+      case 'email':
+        error = validateEmail(value);
         break;
       case 'phone':
         error = validatePhone(value);
         break;
-      case 'email':
-        error = validateEmail(value);
+      case 'password':
+        error = validatePassword(value);
         break;
       case 'imageUrl':
         error = validateUrl(value);
@@ -156,27 +149,27 @@ const MyCardsEdit = () => {
   };
 
   if (isLoading) return <div>Loading...</div>;
-  if (updateSuccess) return <div className='successfulMess'>Your card has been successfully updated</div>;
+  if (successfulReg) return <div className='successfulMess'>You sre successfuly registratied. You need to Login!</div>
 
   return (
-    <div className="my_cards_container">
-      <h2>Form to Edit Card</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <div className="registration-container">
+      <h2>Registration</h2>
+      <form onSubmit={handleSubmit(onSubmit)} className='my_registration_container'>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
             <Controller
-              name="title"
+              name="firstName"
               control={control}
               defaultValue=""
               render={({ field }) => (
                 <TextField
                   {...field}
-                  label="Title *"
+                  label="First Name *"
                   variant="outlined"
                   fullWidth
-                  error={!!errors.title}
-                  helperText={errors.title ? errors.title.message : ''}
-                  onBlur={(e) => handleValidation('title', e.target.value)}
+                  error={!!errors.firstName}
+                  helperText={errors.firstName ? errors.firstName.message : ''}
+                  onBlur={(e) => handleValidation('firstName', e.target.value)}
                   className="my_input"
                   FormHelperTextProps={{ style: { textAlign: 'center' } }}
                 />
@@ -185,58 +178,18 @@ const MyCardsEdit = () => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Controller
-              name="subtitle"
+              name="lastName"
               control={control}
               defaultValue=""
               render={({ field }) => (
                 <TextField
                   {...field}
-                  label="Subtitle *"
+                  label="Last Name *"
                   variant="outlined"
                   fullWidth
-                  error={!!errors.subtitle}
-                  helperText={errors.subtitle ? errors.subtitle.message : ''}
-                  onBlur={(e) => handleValidation('subtitle', e.target.value)}
-                  className="my_input"
-                  FormHelperTextProps={{ style: { textAlign: 'center' } }}
-                />
-              )}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Controller
-              name="description"
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="Description *"
-                  variant="outlined"
-                  fullWidth
-                  error={!!errors.description}
-                  helperText={errors.description ? errors.description.message : ''}
-                  onBlur={(e) => handleValidation('description', e.target.value)}
-                  className="my_input"
-                  FormHelperTextProps={{ style: { textAlign: 'center' } }}
-                />
-              )}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Controller
-              name="phone"
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="Phone*"
-                  variant="outlined"
-                  fullWidth
-                  error={!!errors.phone}
-                  helperText={errors.phone ? errors.phone.message : ''}
-                  onBlur={(e) => handleValidation('phone', e.target.value)}
+                  error={!!errors.lastName}
+                  helperText={errors.lastName ? errors.lastName.message : ''}
+                  onBlur={(e) => handleValidation('lastName', e.target.value)}
                   className="my_input"
                   FormHelperTextProps={{ style: { textAlign: 'center' } }}
                 />
@@ -251,7 +204,7 @@ const MyCardsEdit = () => {
               render={({ field }) => (
                 <TextField
                   {...field}
-                  label="Email*"
+                  label="Email *"
                   variant="outlined"
                   fullWidth
                   error={!!errors.email}
@@ -265,22 +218,61 @@ const MyCardsEdit = () => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Controller
-              name="web"
+              name="middleName"
               control={control}
               defaultValue=""
               render={({ field }) => (
                 <TextField
                   {...field}
-                  label="Web"
+                  label="Middle Name"
                   variant="outlined"
                   fullWidth
-                  placeholder="https://www.yourwebsite.com"
                   className="my_input"
                 />
               )}
             />
           </Grid>
-
+          <Grid item xs={12} sm={6}>
+            <Controller
+              name="phone"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label="Phone *"
+                  variant="outlined"
+                  fullWidth
+                  error={!!errors.phone}
+                  helperText={errors.phone ? errors.phone.message : ''}
+                  onBlur={(e) => handleValidation('phone', e.target.value)}
+                  className="my_input"
+                  FormHelperTextProps={{ style: { textAlign: 'center' } }}
+                />
+              )}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Controller
+              name="password"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label="Password *"
+                  type="password"
+                  variant="outlined"
+                  fullWidth
+                  error={!!errors.password}
+                  helperText={errors.password ? errors.password.message : ''}
+                  onBlur={(e) => handleValidation('password', e.target.value)}
+                  className="my_input"
+                  FormHelperTextProps={{ style: { textAlign: 'center' } }}
+                />
+              )}
+            />
+          </Grid>
           <Grid item xs={12}>
             <Controller
               name="imageUrl"
@@ -328,7 +320,7 @@ const MyCardsEdit = () => {
               render={({ field }) => (
                 <TextField
                   {...field}
-                  label="Country *"
+                  label="Country  *"
                   variant="outlined"
                   fullWidth
                   error={!!errors.country}
@@ -419,10 +411,40 @@ const MyCardsEdit = () => {
               )}
             />
           </Grid>
+          <Grid item xs={12}>
+            <Controller
+              name="isBusiness"
+              control={control}
+              defaultValue={false}
+              render={({ field }) => (
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      {...field}
+                      color="primary"
+                      checked={field.value}
+                      onChange={(e) => {
+                        field.onChange(e.target.checked);
+                        handleValidation('isBusiness', e.target.checked);
+                      }}
+                    />
+                  }
+                  label="Is Business"
+                  className="my_checkbox"
+                />
+              )}
+            />
+          </Grid>
+          {/* <Grid item xs={12}>
+            <Button type="submit" variant="contained" color="primary" disabled={Object.keys(errors).length > 0} className='my_button'>Create</Button>
+            <Button type="button" variant="outlined" color="secondary" onClick={handleClear} className='my_button'>Clear</Button>
+          </Grid> */}
+
           <div className='my_button_container'>
-            <button type="submit" disabled={Object.keys(errors).length > 0} className='my_button primary'>UpDate</button>
+            <button type="submit" disabled={Object.keys(errors).length > 0} className='my_button primary'>Registration</button>
             <button type="button" onClick={handleClear} className='my_button secondary'>Clear</button>
           </div>
+
         </Grid>
       </form>
       {formError && (
@@ -439,4 +461,4 @@ const MyCardsEdit = () => {
   );
 };
 
-export default MyCardsEdit
+export default RegisterForm;

@@ -1,20 +1,20 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import About from './components/About';
-import FavCards from './components/FavCards';
-import Home from './components/Home';
-import MyCards from './components/MyCards';
-import NavbarMaterialUI from './components/NavbarMaterialUI';
-import Login from './components/Login';
-import Registration from './components/Registration';
+import About from './components/about/About';
+import FavCards from './components/favoriteCards/FavCards';
+import Home from './components/home/Home';
+import MyCards from './components/myCards/MyCards';
+import NavbarMaterialUI from './components/navBar/NavbarMaterialUI';
+import Login from './components/login/Login';
+import Registration from './components/registration/Registration';
 import Store from './Store'
 import { Provider } from 'react-redux';
-import CardView from './components/CardView';
-import MyCardsNew from './components/MyCardsNew';
-import MyCardsEdit from './components/MyCardsEdit';
-import MyCardsDelete from './components/MyCardsDelete';
+import CardView from './components/one_card/CardView';
+import MyCardsNew from './components/myCards/MyCardsNew';
+import MyCardsEdit from './components/myCards/MyCardsEdit';
+import MyCardsDelete from './components/myCards/MyCardsDelete';
 import { useState } from 'react';
-import Footer from './components/Footer';
+import Footer from './footer/Footer';
 import ProfileChange from './components/ProfileChange';
 
 

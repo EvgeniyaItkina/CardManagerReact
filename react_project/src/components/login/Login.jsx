@@ -8,11 +8,12 @@ import { useNavigate } from 'react-router-dom';
 import {
   validateEmail,
   validatePassword
-} from '../models/validation';
-import useAPI, { METHOD } from '../hooks/useAPI';
-import { login } from './UserSlice';
+} from '../../models/validation';
+import useAPI, { METHOD } from '../../hooks/useAPI';
+import { login } from '../UserSlice';
 import { useDispatch } from 'react-redux';
 import { Typography } from '@mui/material';
+
 
 const Login = () => {
   const { control, handleSubmit, formState: { errors }, setError, clearErrors, reset } = useForm();
@@ -21,7 +22,6 @@ const Login = () => {
   const [formError, setFormError] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch()
-
 
   useEffect(() => {
     if (data) {
@@ -86,9 +86,8 @@ const Login = () => {
     return <div className='successfulMess'>You are successfuly login</div>
   }
 
-
   return (
-    <div className="login-container">
+    <div className='login-container'>
       <h2>Login</h2>
       <form onSubmit={handleSubmit(onSubmit)} className='my_login_container'>
         <Grid container spacing={2}>

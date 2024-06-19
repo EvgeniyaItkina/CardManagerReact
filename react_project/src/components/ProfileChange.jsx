@@ -1,4 +1,4 @@
-import './Registration.css';
+import '../components/registration/Registration.css';
 import React, { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
@@ -9,7 +9,6 @@ import {
   validateName,
   validateEmail,
   validatePhone,
-  validatePassword,
   validateUrl,
   validateState,
   validateCountry,

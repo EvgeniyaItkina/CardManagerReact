@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, Card, CardContent, CardMedia, Typography, CardActionArea, Button } from '@mui/material';
-import useAPI, { METHOD } from '../hooks/useAPI';
-/* import './Home.css'; */
+import useAPI, { METHOD } from '../../hooks/useAPI';
+import './Home.css';
 
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import callIcon from '../images/call.png';
-import likeIcon from '../images/like.png';
-import likeRedIcon from '../images/like_red.png';
+import callIcon from '../../images/call.png';
+import likeIcon from '../../images/like.png';
+import likeRedIcon from '../../images/like_red.png';
+import deleteIcon from '../../images/delete_bin.png';
 
 const API_CASES = {
   BASE_STATE: 'BASE_STATE',
@@ -17,12 +18,15 @@ const API_CASES = {
 
 let apiCase = API_CASES.CARDS_GET_ALL
 
-const FavCards = ({ searchText }) => {
+const Home = ({ searchText }) => {
   const [listOfCards, setListOfCards] = useState([]);
   const [filteredCards, setFilteredCards] = useState([]);
   const [data, error, isLoading, apiCall] = useAPI();
   const [showPhone, setShowPhone] = useState({ visible: false, phone: '' });
   const userState = useSelector(store => store.user);
+
+
+
 
   useEffect(() => {
     apiCase = API_CASES.CARDS_GET_ALL;
@@ -35,20 +39,19 @@ const FavCards = ({ searchText }) => {
         break;
       case API_CASES.CARDS_GET_ALL:
         if (data) {
-          const likedCards = [];
           data.forEach((card) => {
             if (userState && card.likes.includes(userState._id)) {
               card.liked = true
-              likedCards.push(card)
+            } else {
+              card.liked = false;
             }
           })
-          setListOfCards(likedCards);
+          setListOfCards(data);
           apiCase = API_CASES.BASE_STATE
 
         }
         break;
       case API_CASES.CARDS_LIKE_UNLIKE:
-        console.log('after', data);
         apiCase = API_CASES.CARDS_GET_ALL;
         apiCall(METHOD.CARDS_GET_ALL);
         break;
@@ -68,14 +71,12 @@ const FavCards = ({ searchText }) => {
     }
   }, [searchText, listOfCards]);
 
-  const handleLike = (cardId, card) => {
-    console.log('before', card);
+  const handleLike = (cardId) => {
     const payload = {
       id: cardId
     }
     apiCase = API_CASES.CARDS_LIKE_UNLIKE;
     apiCall(METHOD.CARDS_LIKE_UNLIKE, payload)
-
   };
 
   const handleShowPhone = (phone) => {
@@ -92,8 +93,8 @@ const FavCards = ({ searchText }) => {
 
   return (
     <div className='my_container'>
-      <h2> Favorite Cards </h2>
-      <Grid container spacing={4} className='my_home_container'>
+      <h2> Home Page </h2>
+      <Grid container spacing={4}>
         {filteredCards.map((card) => (
           <Grid item key={card._id} xs={12} sm={6} md={4}>
             <Card className="card-item">
@@ -134,7 +135,13 @@ const FavCards = ({ searchText }) => {
                     <img src={card.liked ? likeRedIcon : likeIcon} alt="Like" />
                   </button>
                 )}
-
+                {userState && userState.isAdmin &&
+                  <Link to={`/mycardsdelete/${card._id}`}>
+                    <button className="icon-button">
+                      <img src={deleteIcon} alt="Delete" />
+                    </button>
+                  </Link>
+                }
               </div>
 
             </Card>
@@ -156,4 +163,4 @@ const FavCards = ({ searchText }) => {
   );
 };
 
-export default FavCards;
+export default Home;
