@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import useAPI, { METHOD } from '../../hooks/useAPI';
 import './CRM.css';
+import { useNavigate } from 'react-router-dom';
 
-const CRM = () => {
+const CRM = ({ searchText }) => {
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 10;
   const [data, error, isLoading, apiCall] = useAPI();
+  const [filteredUsers, setFilteredUsers] = useState([]);
+
+  const [userToDelete, setUserToDelete] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [successfulDelete, setSuccessDelete] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     apiCall(METHOD.USERS_GET_ALL);
@@ -15,10 +22,21 @@ const CRM = () => {
   useEffect(() => {
     if (data && Array.isArray(data)) {
       setUsers(data);
-    } else {
-      console.error("Unexpected data format:", data);
+      setFilteredUsers(data);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (searchText) {
+      const filtered = users.filter(user =>
+        `${user.name.first} ${user.name.middle} ${user.name.last} ${user.email}`.toLowerCase().includes(searchText.toLowerCase())
+      );
+      setFilteredUsers(filtered);
+    } else {
+      setFilteredUsers(users);
+    }
+    setCurrentPage(1);
+  }, [searchText, users]);
 
   const handleStatusChange = async (userId) => {
     console.log(`Updating status for user with ID: ${userId}`);
@@ -27,18 +45,38 @@ const CRM = () => {
     apiCall(METHOD.USERS_GET_ALL);
   };
 
-  const handleDeleteUser = async (userId) => {
-    console.log(`Deleting user with ID: ${userId}`);
-    await apiCall(METHOD.USER_DELETE, { id: userId });
-    // Refresh the users list after deletion
-    apiCall(METHOD.USERS_GET_ALL);
+  const handleDeleteUser = async () => {
+    if (userToDelete) {
+      console.log(`Deleting user with ID: ${userToDelete._id}`);
+      await apiCall(METHOD.USER_DELETE, { id: userToDelete._id });
+      setSuccessDelete(true);
+      setTimeout(() => {
+        setSuccessDelete(false);
+        navigate('/CRM');
+      }, 2000);
+      // Refresh the users list after deletion
+      apiCall(METHOD.USERS_GET_ALL);
+      setShowModal(false);
+      setUserToDelete(null);
+    }
+  };
+
+  const confirmDeleteUser = (user) => {
+    console.log(`Confirm delete user: ${user.name.first} ${user.name.last} (${user.email})`);
+    setUserToDelete(user);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setUserToDelete(null);
   };
 
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+  const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
 
-  const totalPages = Math.ceil(users.length / usersPerPage);
+  const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
   const pageNumbersToShow = 5;
 
   const renderPageNumbers = () => {
@@ -102,36 +140,54 @@ const CRM = () => {
   return (
     <div className="crm-container">
       <h2>CRM System</h2>
-      <table className="crm-table">
-        <thead>
-          <tr>
-            <th style={{ width: '25vw' }}>Name</th>
-            <th>Email</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentUsers.map(user => (
-            <tr key={user._id}>
-              <td>{`${user.name.first} ${user.name.middle} ${user.name.last}`}</td>
-              <td>{user.email}</td>
-              <td>{user.isBusiness ? 'Business' : 'Regular'}</td>
-              <td>
-                <button onClick={() => handleStatusChange(user._id)}>
-                  {user.isBusiness ? 'Set Regular' : 'Set Business'}
-                </button>
-                {!user.isAdmin && (
-                  <button onClick={() => handleDeleteUser(user._id)}>Delete</button>
-                )}
-              </td>
+      <div className="crm-table-container">
+        <table className="crm-table">
+          <thead>
+            <tr>
+              <th style={{ width: '22vw' }}>Name</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {currentUsers.map(user => (
+              <tr key={user._id}>
+                <td>{`${user.name.first} ${user.name.middle} ${user.name.last}`}</td>
+                <td>{user.email}</td>
+                <td>{user.isBusiness ? 'Business' : 'Regular'}</td>
+                <td className='table_button'>
+                  <button className="my_button primary" onClick={() => handleStatusChange(user._id)}>
+                    {user.isBusiness ? 'Set Regular' : 'Set Business'}
+                  </button>
+                  {!user.isAdmin && (
+                    <button className="my_button secondary" onClick={() => confirmDeleteUser(user)}>Delete</button>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+
+        </table>
+      </div>
       <div className="pagination">
         {renderPageNumbers()}
       </div>
+      {showModal && (
+        <div className="my_modal">
+          <div className="my_modal-content">
+            <h4>Are you sure you want to delete user:</h4>
+            <p>{userToDelete && `${userToDelete.name.first} ${userToDelete.name.last} (${userToDelete.email})`}</p>
+            <button onClick={handleDeleteUser} className="my_button secondary">Delete</button>
+            <button onClick={closeModal} className="my_button primary">Back</button>
+          </div>
+        </div>
+      )}
+      {successfulDelete && (
+        <div className="successfulMess">
+          User deleted successfully.
+        </div>
+      )}
     </div>
   );
 };

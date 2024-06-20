@@ -61,3 +61,59 @@
   margin-top: 20px;
   border-radius: 10px;
 }
+
+@media (max-width: 768px) {
+  .about-container {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .about-text, .about-card {
+    width: 100%;
+  }
+
+  .about-container h3 {
+    font-size: 1.2em;
+  }
+
+  .about-container p {
+    font-size: 1em;
+  }
+
+  .about_welcome h2 {
+    font-size: 2em;
+    margin-bottom: 15px;
+  }
+
+  .about_welcome {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-container {
+    flex-direction: column;
+    padding: 5px;
+  }
+
+  .about-text, .about-card {
+    width: 100%;
+  }
+
+  .about-container h3 {
+    font-size: 1em;
+  }
+
+  .about-container p {
+    font-size: 0.9em;
+  }
+
+  .about_welcome h2 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+  }
+
+  .about_welcome {
+    font-size: 16px;
+  }
+}

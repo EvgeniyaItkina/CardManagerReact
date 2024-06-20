@@ -1,29 +1,26 @@
 .crm-container {
+  font-size: 1.2em;
+  padding: 20px;
+}
+.crm-container h2{
   padding: 20px;
 }
 
-.crm-table {
+.crm-table-container {
   width: 100%;
-  border-collapse: collapse;
+  display: flex;
+  justify-content: center; 
+  overflow-x: auto; 
 }
 
+
 .crm-table th, .crm-table td {
-  border: 1px solid #ddd;
+  border: 3px solid #ddd;
   padding: 8px;
 }
 
 .crm-table th {
   background-color: #f2f2f2;
-}
-
-button {
-  padding: 5px 10px;
-  margin-right: 5px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #ddd;
 }
 
 .pagination {
@@ -49,4 +46,138 @@ button:hover {
 .page-number:hover {
   background-color: #007bff;
   color: #fff;
+}
+
+.my_modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  text-align: center;
+}
+
+.my_modal-content h4 {
+  margin-bottom: 10px;
+}
+
+.modal-content p {
+  margin-bottom: 20px;
+}
+@media (max-width: 768px) {
+  .crm-container {
+    padding: 10px;
+  }
+
+  .crm-table-container {
+    overflow-x: auto;
+  }
+  .crm-table {
+    width: 93%;
+  }
+
+  .crm-table th, .crm-table td {
+    padding: 5px;
+    font-size: 14px;
+  }
+  .table_button{
+    display: flex;
+    flex-direction: column;
+  }
+  .my_button {
+    padding: 2px 4px;
+    margin: 8px;
+    font-size: 10px;
+  }
+
+  .pagination {
+    flex-wrap: wrap;
+  }
+
+  .page-number {
+    margin: 2px;
+    padding: 5px;
+    font-size: 14px;
+  }
+
+  .my_modal {
+    width: 70%;
+    padding: 15px;
+  }
+
+  .my_modal-content h4 {
+    font-size: 18px;
+  }
+
+  .my_modal-content p {
+    font-size: 16px;
+  }
+
+  .my_modal-content .my_button {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .crm-container {
+    padding: 5px;
+  }
+
+  .crm-table-container {
+    overflow-x: auto;
+  }
+  .crm-table{
+    width: 93%;
+  }
+
+  .crm-table th, .crm-table td {
+    padding: 0px;
+    font-size: 10px;
+  }
+
+.table_button{
+  display: flex;
+  flex-direction: column;
+}
+
+  .my_button {
+    padding: 2px 4px;
+    margin: 8px;
+    font-size: 10px;
+  }
+
+  .pagination {
+    flex-direction: column;
+  }
+
+  .page-number {
+    margin: 1px;
+    padding: 4px;
+    font-size: 12px;
+  }
+
+  .my_modal {
+    width: 70%;
+    padding: 10px;
+  }
+
+  .my_modal-content h4 {
+    font-size: 16px;
+  }
+
+  .my_modal-content p {
+    font-size: 14px;
+  }
+
+  .my_modal-content .my_button {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+  }
 }

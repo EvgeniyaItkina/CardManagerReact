@@ -41,7 +41,7 @@ const useAPI = () => {
           response = await axios.put(`${baseCardsURL}/${updateId}`, updatePayload, header);
           break;
         case METHOD.CARDS_LIKE_UNLIKE:
-          response = await axios.patch(`${baseCardsURL}/${payload.id}`, header);
+          response = await axios.patch(`${baseCardsURL}/${payload.id}`, {}, header);
           break;
 
         case METHOD.USER_REGISTER:

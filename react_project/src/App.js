@@ -41,7 +41,7 @@ function App() {
             <Route path="//mycardsedit/:cardId" element={<MyCardsEdit />} />
             <Route path="/mycardsdelete/:cardId" element={<MyCardsDelete />} />
             <Route path="/profilechange" element={<ProfileChange />} />
-            <Route path="/CRM" element={<CRM />} />
+            <Route path="/CRM" element={<CRM searchText={searchText} />} />
           </Routes>
           <Footer />
         </BrowserRouter>

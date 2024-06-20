@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import likeIcon from '../images/like.png';
 import aboutIcon from '../images/about.png';
 import my_cardsIcon from '../images/my_cards.png';
+import crmIcon from '../images/crm.png';
 import './Footer.css';
 
 let footer_icons = [
@@ -32,7 +33,7 @@ const Footer = () => {
         { name: 'About', path: '/about', icon: aboutIcon },
         { name: 'Fav Cards', path: '/favCards', icon: likeIcon },
         { name: 'My Cards', path: '/myCards', icon: my_cardsIcon },
-        { name: 'CRM', path: '/CRM', /* icon: crmIcon */ }
+        { name: 'CRM', path: '/CRM', icon: crmIcon }
       ];
     }
 
