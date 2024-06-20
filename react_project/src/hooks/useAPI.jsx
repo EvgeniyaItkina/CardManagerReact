@@ -25,8 +25,7 @@ const useAPI = () => {
           response = await axios.get(baseCardsURL);
           break;
         case METHOD.CARDS_GET_ONE:
-          const { id } = payload;  // Извлекаем id из payload
-          response = await axios.get(`${baseCardsURL}/${id}`);
+          response = await axios.get(`${baseCardsURL}/${payload.id}`);
           break;
         case METHOD.CARDS_CREATE:
           response = await axios.post(baseCardsURL, payload, header);
@@ -42,7 +41,7 @@ const useAPI = () => {
           response = await axios.put(`${baseCardsURL}/${updateId}`, updatePayload, header);
           break;
         case METHOD.CARDS_LIKE_UNLIKE:
-          response = await axios.patch(`${baseCardsURL}/${payload.id}`, {}, header);
+          response = await axios.patch(`${baseCardsURL}/${payload.id}`, header);
           break;
 
         case METHOD.USER_REGISTER:
@@ -51,16 +50,21 @@ const useAPI = () => {
         case METHOD.USER_LOGIN:
           response = await axios.post(`${baseUsersURL}/login`, payload);
           break;
+        case METHOD.USERS_GET_ALL:
+          response = await axios.get(baseUsersURL, header);
+          break;
         case METHOD.USERS_GET_ONE:
           response = await axios.get(`${baseUsersURL}/${payload.id}`, header);
           break;
         case METHOD.USERS_UPDATE:
-          const userID = payload.id;
-          delete payload.id;
-          response = await axios.put(`${baseUsersURL}/${userID}`, payload, header);
+          response = await axios.put(`${baseUsersURL}/${payload.id}`, payload, header);
           break;
-
-        // другие методы
+        case METHOD.USER_UPDATE_STATUS:
+          response = await axios.patch(`${baseUsersURL}/${payload.id}`, {}, header);
+          break;
+        case METHOD.USER_DELETE:
+          response = await axios.delete(`${baseUsersURL}/${payload.id}`, header);
+          break;
 
         default:
           throw new Error('Invalid API method');
@@ -68,7 +72,7 @@ const useAPI = () => {
 
       setData(response.data);
     } catch (err) {
-      setError(err.message);
+      setError(err.response ? err.response.data : err.message);
     } finally {
       setIsLoading(false);
     }
@@ -90,5 +94,7 @@ export const METHOD = {
   USERS_UPDATE: 'USERS_UPDATE',
   USER_REGISTER: "USER_REGISTER",
   USER_LOGIN: "USER_LOGIN",
+  USER_UPDATE_STATUS: "USER_UPDATE_STATUS",
+  USER_DELETE: "USER_DELETE"
 };
 export default useAPI;

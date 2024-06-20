@@ -7,8 +7,6 @@ export const UserSlice = createSlice({
   reducers: {
     login: (state, action) => {
       const token = action.payload;
-      console.log("action", action);
-      console.log("state", state);
       localStorage.setItem('token', token);
       const userData = jwtDecode(action.payload)
       return { ...state, ...userData, token };

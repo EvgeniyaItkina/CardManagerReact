@@ -46,7 +46,6 @@ const FavCards = ({ searchText }) => {
         }
         break;
       case API_CASES.CARDS_LIKE_UNLIKE:
-        console.log('after', data);
         apiCase = API_CASES.CARDS_GET_ALL;
         apiCall(METHOD.CARDS_GET_ALL);
         break;
@@ -67,7 +66,6 @@ const FavCards = ({ searchText }) => {
   }, [searchText, listOfCards]);
 
   const handleLike = (cardId, card) => {
-    console.log('before', card);
     const payload = {
       id: cardId
     }

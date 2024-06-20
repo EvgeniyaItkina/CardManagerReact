@@ -82,7 +82,6 @@ const MyCardsNew = () => {
     }
 
     apiCall(METHOD.CARDS_CREATE, payload);
-
   };
 
   const closeModal = () => {
@@ -282,6 +281,7 @@ const MyCardsNew = () => {
                   label="Image URL"
                   variant="outlined"
                   fullWidth
+                  placeholder="https://www.yourpicture.jpg"
                   error={!!errors.imageUrl}
                   helperText={errors.imageUrl ? errors.imageUrl.message : ''}
                   onBlur={(e) => handleValidation('imageUrl', e.target.value)}

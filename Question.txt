@@ -1,32 +1,32 @@
-•	Список компонентов:
+Components
 NavbarMaterialUI 
-o	not logIn: Links on Nav Bar: Home, About, Search, Login, Registration 
-o	logIn not Busyness: Links on Nav Bar: Home, About, , Favorites Cards, Search, Icon
-o	logIn Busyness: Links on Nav Bar: About, Favorites Cards, My Cards, Search, Icon
-o	logIn Admine: Links on Nav Bar: About, Favorites Cards, My Cards, CRM, Search, Icon
+o	not logIn: Links on Nav Bar: Home, About, Search, Dark Mode Login, Registration 
+o	logIn not Busyness: Links on Nav Bar: Home, About, , Favorites Cards, Search, Dark Mode, Icon
+o	logIn Busyness: Links on Nav Bar: About, Favorites Cards, My Cards, Search, Dark Mode, Icon
+o	logIn Admine: Links on Nav Bar: About, Favorites Cards, My Cards, CRM, Search, Dark Mode , Icon
 
 o	Home – link to component Home
 o	About -  link to component About
 o	Login – link to component Login
 o	Registration – link to component Registration
-o	Icon – drop down (bonus?)
-o	Favorites Cards
-o	My Cards
-o	CRM
-o	Search – input влияет на Home (API?)
+o	Icon – drop down (bonus?) – add update Profile
+o	Favorites Cards link to component FavCards
+o	My Cards link to component Login MyCards
+o	CRM link to component CRM
+o	Search – input влияет на Home (in data from useAPI)  
 o	Logout (in Icon) – reset User
- 
 
+ 
 Home:
 •	All cards from API depend on search 
 •	How much cards – API?
 •	Each Card – 
-o	not logIn: phone
-o	logIn not Busyness: phone , like
-o	logIn Busyness: phone, like 
-o	logIn Admine: phone, like, delete
+    o	not logIn: phone
+    o	logIn not Busyness: phone , like
+    o	logIn Busyness: phone, like 
+    o	logIn Admine: phone, like, delete
 •	Each Card – link to component CardView
-•	Phone – show div with telephone????
+•	Phone – show div with telephone
 •	Like – change color and save API??
 •	Delete – delete card
 
@@ -34,28 +34,25 @@ CardView:
 •	call API with more details API
 •	details of busyness with google maps
  
-CardNew/Edit
-•	New Card:
+CardNew
 - title: New Card
 - form to create Card
 - check validation 
-o	successful – 
-o	 error – 
+    o	successful – 
+    o	 error – 
 - check submit PUSH
-o	successful – 
-o	 error – 
+    o	successful – 
+    o	 error – 
 
-
-•	Edit Card
+Edit Card
 - title: Edit Card
 - form to create Card with details from API of card
 •	- check validation 
-o	successful – 
-o	 error – 
+    o	successful – 
+    o	 error – 
 - check submit PUT
-o	successful – 
-o	 error – 
-
+    o	successful – 
+    o	 error – 
 
 About – page static
 
@@ -64,20 +61,48 @@ Fav Cards:
 •	List of cards from API with key: ”favorite cards”
 •	Card: copy card UI from Home
 buttons: 
-like – button that remove from favorites
-phone - 
-delete - ?????
+    like – button that remove from favorites
+    phone - 
+    delete - only your cards
 
 My Cards 
 •	Title
 •	List my cards from API with key: ”my cards”
 •	Card: copy card UI from Home
 o	buttons: 
-like – button that remove from favorites
-phone - 
-edit – link to Card Edit
-delete – delete from API
-•	button “+” – link New Card
+    like – button that remove from favorites
+    phone - 
+    edit – link to Card Edit
+    delete – delete from API
+•	button “New Card” – link New Card
+
+Login: 
+*  title
+•	Form to login 
+- check validation 
+    o	successful – 
+    o	 error – 
+- check submit PUT
+    o	successful – 
+    o	 error – 
+* token and his decode to lockalStorage
+
+Registration
+*  title
+•	Form to registration  
+- check validation 
+    o	successful – 
+    o	 error – 
+- check submit PUT
+    o	successful – 
+    o	 error –
+
+Footer:
+not logIn: About
+logIn not Busyness: About, Favorites Cards
+logIn Busyness: Links on Nav Bar: About, Favorites Cards, My Cards
+logIn Admine: Links on Nav Bar: About, Favorites Cards, My Cards 
+
 
 CRM :
 
@@ -88,95 +113,13 @@ o	name
 o	bus/notbus
 o	button – change status
 o	button delete user
-Login: 
-*  title
-•	Form to login 
-- check validation 
-o	successful – 
-o	 error – 
-- check submit PUT
-o	successful – 
- error –
-* token and his decode to lockalStorage
-
-Registration
-*  title
-•	Form to registration  
-- check validation 
-o	successful – 
-o	 error – 
-- check submit PUT
-o	successful – 
-o	 error –
-Footer:
-
-not logIn: About
-logIn not Busyness: About, Favorites Cards
-logIn Busyness: Links on Nav Bar: About, Favorites Cards, My Cards
-logIn Admine: Links on Nav Bar: About, Favorites Cards, My Cards 
-
-
-
-
-
-
-Главная страница (Home)
-- links on Nav Bar - About, Login, Registration
-- Страница меняется внешне в зависимости от зарегистрирован ли пользователь
-- Смена цвета Dark Mode
-- Body : карточки
-	при нажатии на каждую отдельную карточку перейти на другю компоненту
-
-
-Main page (first enter) -
-- page About
-- page login
-- page Registration 
-- cards_get_all
-- cards_get_one
-- search card
-- footer
--
-
-Login:
-- validation with users API tolkin 
-- where I can check on server who is registrated
-200 � home 
-
-Registration:
-- validation with the user
-- user_post
-
-Page after Login NOT business - user (tolkin):
-- favorite cards
-
-Page after Login business - user (tolkin):
-- create card create_card_api
-- update(post)_card_api only his cards
-- favorite cards
-- my cards??? What there his cards that created - delete card only his cards
-
-Page after Login admin (tolkin)
-- delete cards - 
-- delete user???? + delete all cards(favorit, my cards api 2)
-- send box??? What inside 
-only admin see who is registrated
-email: admin@gmail.com
-Password: Abc!123Abc
-- change user�properties?
-
-SendBOX: (CRM) � list of all users , list of all cards, which type of user 
-
-
-which type of users I can create? Business/notbiseness
-
-
 
 
 
 technology�s:
-bootstrap
+bootstrap - Home
 MUI
+HTML + CSS
 useState 
 useEffect
 useForm Controller
@@ -184,5 +127,12 @@ useMemo - DarkTheme
 Router 
 REDUX (STORE PROVIDER SLICE)
 npm install jwt-decode
+useSelector
+axios
+useCallback
+custom hook useAPI, useTheme
+useDispatch
+useParams
+
 
 

@@ -16,6 +16,7 @@ import MyCardsDelete from './components/myCards/MyCardsDelete';
 import { useState } from 'react';
 import Footer from './footer/Footer';
 import ProfileChange from './components/ProfileChange';
+import CRM from './components/admin_CRM/CRM';
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
             <Route path="//mycardsedit/:cardId" element={<MyCardsEdit />} />
             <Route path="/mycardsdelete/:cardId" element={<MyCardsDelete />} />
             <Route path="/profilechange" element={<ProfileChange />} />
+            <Route path="/CRM" element={<CRM />} />
           </Routes>
           <Footer />
         </BrowserRouter>

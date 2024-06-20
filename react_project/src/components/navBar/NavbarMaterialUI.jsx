@@ -67,7 +67,6 @@ function NavbarMaterialUI({ onSearch }) {
   }
 
   if (userState && userState.isAdmin) {
-    console.log("userState:", userState);
     pages = [
       { name: 'About', path: '/about' },
       { name: 'Fav Cards', path: '/favCards' },
@@ -99,7 +98,6 @@ function NavbarMaterialUI({ onSearch }) {
     event.preventDefault();
   };
 
-
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -120,7 +118,6 @@ function NavbarMaterialUI({ onSearch }) {
     dispatch(logout());
     navigate("/");
     handleCloseUserMenu();
-
   };
 
   const handleUserProfile = () => {
@@ -233,8 +230,6 @@ function NavbarMaterialUI({ onSearch }) {
             ))}
           </Box>
 
-
-          {/*SEARCH*/}
           <form onSubmit={handleSearchSubmit}>
             <TextField
               variant="outlined"
@@ -252,12 +247,10 @@ function NavbarMaterialUI({ onSearch }) {
               }}
             />
           </form>
-
           <FormControlLabel
             control={<Switch checked={mode === 'dark'} onChange={toggleTheme} />}
             label={mode === 'light' ? 'Light Mode' : 'Dark Mode'}
           />
-
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             {buttons.map((button) => (
               <Button
@@ -271,9 +264,6 @@ function NavbarMaterialUI({ onSearch }) {
               </Button>
             ))}
           </Box>
-
-
-
           <Box sx={userState ? { display: 'flex', flexGrow: 0 } : { display: 'none' }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

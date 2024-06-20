@@ -33,7 +33,6 @@ const RegisterForm = () => {
 
   useEffect(() => {
     if (data) {
-      console.log("registration data:", data);
       setSuccessfulReg(true);
       setTimeout(() => {
         navigate("/")

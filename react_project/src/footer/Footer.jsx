@@ -6,13 +6,12 @@ import likeIcon from '../images/like.png';
 import aboutIcon from '../images/about.png';
 import my_cardsIcon from '../images/my_cards.png';
 import './Footer.css';
+
 let footer_icons = [
   { name: 'About', path: '/about', icon: aboutIcon },
-
 ]
 const Footer = () => {
   const userState = useSelector(store => store.user)
-
 
   if (userState) {
     if (userState.isBusiness) {
@@ -43,9 +42,7 @@ const Footer = () => {
     ];
   }
 
-
   return (
-
     <footer>
       <div className="footer-icons">
         {footer_icons.map((footer_icon) => (

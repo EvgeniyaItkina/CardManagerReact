@@ -1,0 +1,52 @@
+.crm-container {
+  padding: 20px;
+}
+
+.crm-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.crm-table th, .crm-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.crm-table th {
+  background-color: #f2f2f2;
+}
+
+button {
+  padding: 5px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #ddd;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.page-number {
+  margin: 0 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  background-color: #fff;
+}
+
+.page-number.active {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.page-number:hover {
+  background-color: #007bff;
+  color: #fff;
+}

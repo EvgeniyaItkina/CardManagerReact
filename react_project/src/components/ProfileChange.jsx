@@ -23,7 +23,6 @@ import { useSelector } from 'react-redux';
 
 
 const ProfileChange = () => {
-
   const { control, handleSubmit, formState: { errors }, setError, clearErrors, reset, setValue } = useForm();
   const [data, error, isLoading, apiCall] = useAPI();
   const [updateSuccess, setUpdateSuccess] = useState(false);
@@ -64,7 +63,6 @@ const ProfileChange = () => {
     }
   }, [error]);
 
-
   const onSubmit = async (data) => {
     if (!data.firstName
       || !data.lastName
@@ -73,7 +71,6 @@ const ProfileChange = () => {
       || !data.city
       || !data.street
       || !data.houseNumber) {
-      console.log("data form", data);
       setFormError('Fill the form');
       return;
     }
@@ -163,7 +160,6 @@ const ProfileChange = () => {
     }
   };
 
-
   if (isLoading) return <div>Loading...</div>;
   if (updateSuccess) return <div className='successfulMess'>You are successfuly update your profile</div>
 
@@ -212,7 +208,6 @@ const ProfileChange = () => {
               )}
             />
           </Grid>
-
           <Grid item xs={12} sm={6}>
             <Controller
               name="middleName"
@@ -249,7 +244,6 @@ const ProfileChange = () => {
               )}
             />
           </Grid>
-
           <Grid item xs={12}>
             <Controller
               name="imageUrl"

@@ -25,9 +25,6 @@ const Home = ({ searchText }) => {
   const [showPhone, setShowPhone] = useState({ visible: false, phone: '' });
   const userState = useSelector(store => store.user);
 
-
-
-
   useEffect(() => {
     apiCase = API_CASES.CARDS_GET_ALL;
     apiCall(METHOD.CARDS_GET_ALL);
@@ -48,7 +45,6 @@ const Home = ({ searchText }) => {
           })
           setListOfCards(data);
           apiCase = API_CASES.BASE_STATE
-
         }
         break;
       case API_CASES.CARDS_LIKE_UNLIKE:
@@ -153,7 +149,6 @@ const Home = ({ searchText }) => {
                   </Link>
                 }
               </div>
-
             </Card>
           </Grid>
         ))}
