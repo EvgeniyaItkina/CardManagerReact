@@ -35,7 +35,7 @@ const Login = () => {
 
   useEffect(() => {
     if (error) {
-      setFormError('Error: Incorrect email or password. Please try again.');
+      setFormError(error);
     }
   }, [error]);
 

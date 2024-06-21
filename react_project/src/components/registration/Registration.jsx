@@ -42,11 +42,9 @@ const RegisterForm = () => {
 
   useEffect(() => {
     if (error) {
-      const errorMessage = error.response?.data?.message || 'Error: Registration failed. Please try again.';
-      setFormError(errorMessage);
+      setFormError(error);
     }
   }, [error]);
-
 
   const onSubmit = (data) => {
     if (!data.firstName

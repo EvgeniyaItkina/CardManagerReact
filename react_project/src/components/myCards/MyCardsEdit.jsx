@@ -53,8 +53,7 @@ const MyCardsEdit = () => {
 
   useEffect(() => {
     if (error) {
-      const errorMessage = error.response?.data?.message || 'Error: Update failed. Please try again.';
-      setFormError(errorMessage);
+      setFormError(error);
     }
   }, [error]);
 

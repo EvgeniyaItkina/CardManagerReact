@@ -38,10 +38,11 @@ const MyCardsNew = () => {
     }
   }, [data, navigate]);
 
+
   useEffect(() => {
     if (error) {
-      const errorMessage = error.response?.data?.message || 'Error: Create is failed. Please try again.';
-      setFormError(errorMessage);
+      error.includes("Mongoose Error: E11000 duplicate key") ?
+        setFormError('This email alrady have been used') : setFormError('Error: Create is failed. Please try again.');
     }
   }, [error]);
 
