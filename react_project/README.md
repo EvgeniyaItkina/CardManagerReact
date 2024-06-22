@@ -1,70 +1,114 @@
-# Getting Started with Create React App
+# Introduction
+
+This project is a comprehensive Card Management System designed for business use, providing various functionalities based on user roles (visitor, regular user, business user, admin). The application allows users to manage business cards, view detailed card information, and perform CRUD operations. Admins have additional capabilities, such as managing users and changing user statuses.
+
+### Features
+User authentication and role-based access control
+Create, view, edit, and delete business cards
+All pages support search function (Home, MyCards, FavCards, CRM)
+Like and favorite cards
+Admin management of users
+Errors depend on dynamic API responses.
+
+### Installation
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Clone the repository:
+[https://github.com/your-username/crm-card-management.git](https://github.com/your-username/crm-card-management.git) 
+### Navigate to the project directory:
+cd crm-card-management
+### Install dependencies:
+npm install
+### Start the development server:
+npm start
 
-## Available Scripts
+# Components
+### NavbarMaterialUI
+- **Not Logged In**: Home, About, Search, Dark Mode, Login, Registration
+- **Logged In (Regular User)**: Home, About, Favorites Cards, Search, Dark Mode, Profile Icon
+- **Logged In (Business User)**: About, Favorites Cards, My Cards, Search, Dark Mode, Profile Icon
+- **Logged In (Admin)**: About, Favorites Cards, My Cards, CRM, Search, Dark Mode, Profile Icon
 
-In the project directory, you can run:
+### Home
+Displays all cards from API based on search criteria.
 
-### `npm start`
+Card actions:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Not logged in**: View phone.
+- **Logged in (Regular User)**: View phone, like card.
+- **Logged in (Business User)**: View phone, like card.
+- **Logged in (Admin)**: View phone, like card, delete card.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### CardView
+Displays detailed information about a card.
 
-### `npm test`
+### CardNew
+Form to create a new card.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Validation and submission handling.
 
-### `npm run build`
+### CardEdit
+Form to edit an existing card.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Pre-fills form with card details fetched from API.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Validation and submission handling.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### About
+Static information about the application.
 
-### `npm run eject`
+### FavCards
+Displays a list of favorite cards.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Card actions: **like** (remove from favorites), **view phone**, **delete** (only own cards).
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### MyCards
+Displays a list of user-created cards.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Card actions: **like** (remove from favorites), **view phone**, **edit card**, **delete card**.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Button to create a new card.
 
-## Learn More
+### Login
+Form to log in.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Validation and submission handling.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Stores token in localStorage.
 
-### Code Splitting
+### Registration
+Form to register a new account.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Validation and submission handling.
 
-### Analyzing the Bundle Size
+### Footer
+- **Not Logged In**: About
+- **Logged In (Regular User)**: About, Favorites Cards
+- **Logged In (Business User)**: About, Favorites Cards, My Cards
+- **Logged In (Admin)**: About, Favorites Cards, My Cards
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### CRM
+Admin functionality to manage users.
 
-### Making a Progressive Web App
+Displays a table of users with columns for ID, name, status (business/regular), and actions (change status, delete user).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Confirm deletion with a modal popup.
 
-### Advanced Configuration
+### Dark Mode
+Toggle switch to enable dark mode using useTheme custom hook
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Search
 
-### Deployment
+Search bar that filters cards displayed on the Home page
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Technologies Used
+* Bootstrap
+* Material-UI (MUI)
+* HTML & CSS
+* React (useState, useEffect, useMemo, useCallback, useParams)
+* React Router
+* Redux (store, provider, slice, useSelector, useDispatch)
+* Axios
+* JWT
+* Custom hooks (useAPI, useTheme)
+* React Hook Form (useForm, Controller)

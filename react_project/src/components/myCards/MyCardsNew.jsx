@@ -21,7 +21,6 @@ import {
 import useAPI, { METHOD } from '../../hooks/useAPI';
 import { Typography } from '@mui/material';
 
-
 const MyCardsNew = () => {
   const { control, handleSubmit, formState: { errors }, setError, clearErrors, reset } = useForm();
   const [data, error, isLoading, apiCall] = useAPI();
@@ -38,14 +37,12 @@ const MyCardsNew = () => {
     }
   }, [data, navigate]);
 
-
   useEffect(() => {
     if (error) {
       error.includes("Mongoose Error: E11000 duplicate key") ?
         setFormError('This email alrady have been used') : setFormError('Error: Create is failed. Please try again.');
     }
   }, [error]);
-
 
   const onSubmit = (data) => {
     if (!data.title
@@ -81,7 +78,6 @@ const MyCardsNew = () => {
         zip: data.zip
       },
     }
-
     apiCall(METHOD.CARDS_CREATE, payload);
   };
 

@@ -130,7 +130,6 @@ const CRM = ({ searchText }) => {
         );
       }
     }
-
     return pageNumbers;
   };
 

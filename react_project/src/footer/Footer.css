@@ -11,7 +11,6 @@
   --footer-background-gradient: var(--footer-background-gradient-light);
 }
 
-
 footer {
   background: var(--footer-background-gradient);
   border-radius: 40px;

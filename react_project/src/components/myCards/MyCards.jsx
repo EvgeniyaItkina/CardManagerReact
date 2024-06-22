@@ -84,14 +84,12 @@ const MyCards = ({ searchText }) => {
     setShowPhone({ visible: false, phone: '' });
   };
 
-
-
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
+
   return (
     <div className="my_cards_container">
       <h2>My Cards</h2>
-      {/* <Button variant="contained" color="primary" component={Link} to="/mycardsnew" className='my_button'>Create New Card</Button> */}
       <button type="button" className="my_button primary" onClick={() => navigate('/mycardsnew')}>
         Create New Card
       </button>

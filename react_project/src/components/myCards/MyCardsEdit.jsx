@@ -86,7 +86,6 @@ const MyCardsEdit = () => {
       }
     };
 
-
     await apiCall(METHOD.CARDS_UPDATE, { id: cardId, ...payload });
     setUpdateSuccess(true);
     setTimeout(() => {

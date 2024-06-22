@@ -14,7 +14,6 @@ import { login } from '../UserSlice';
 import { useDispatch } from 'react-redux';
 import { Typography } from '@mui/material';
 
-
 const Login = () => {
   const { control, handleSubmit, formState: { errors }, setError, clearErrors, reset } = useForm();
   const [data, error, isLoading, apiCall] = useAPI();

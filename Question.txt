@@ -145,8 +145,10 @@ Create, view, edit, and delete business cards
 All pages support search function (Home, MyCards, FavCards, CRM)
 Like and favorite cards
 Admin management of users
+Errors depend on dynamic API responses.
 
 Installation
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 Clone the repository:
 git clone https://github.com/your-username/crm-card-management.git
 Navigate to the project directory:

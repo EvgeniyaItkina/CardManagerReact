@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Grid, Card, CardContent, CardMedia, Typography, CardActionArea, Button } from '@mui/material';
 import useAPI, { METHOD } from '../../hooks/useAPI';
 import './Home.css';
-
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import callIcon from '../../images/call.png';

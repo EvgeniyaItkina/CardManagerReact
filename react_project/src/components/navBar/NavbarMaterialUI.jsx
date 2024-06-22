@@ -24,7 +24,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login, logout } from '../UserSlice';
 import { useState } from 'react';
 
-
 let pages = [
   { name: 'About', path: '/about' },
 ];
@@ -86,7 +85,6 @@ function NavbarMaterialUI({ onSearch }) {
   }
 
   const handleSearchChange = (event) => {
-
     const value = event.target.value;
     if (typeof value === 'string') {
       setSearch(value);
@@ -184,7 +182,6 @@ function NavbarMaterialUI({ onSearch }) {
               ))}
 
               {buttons.map((button) => (
-
                 <Button
                   key={button.name}
                   component={Link}

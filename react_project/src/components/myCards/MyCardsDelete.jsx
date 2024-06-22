@@ -79,7 +79,6 @@ const MyCardsDelete = () => {
           <button type="submit" onClick={handleDelete} className='my_button primary'>Delete</button>
           <button type="button" onClick={() => navigate('/myCards')} className='my_button secondary'>Cancel</button>
         </div>
-
       </div>
 
       {successfulDelete && (
