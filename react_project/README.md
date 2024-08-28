@@ -112,3 +112,7 @@ Search bar that filters cards displayed on the Home page
 * JWT
 * Custom hooks (useAPI, useTheme)
 * React Hook Form (useForm, Controller)
+
+
+Email for admin: admin@gmail.com 
+Password for admin: Abc!123Abc

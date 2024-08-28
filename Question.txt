@@ -1,3 +1,6 @@
+Email for admin: admin@gmail.com 
+Password for admin: Abc!123Abc
+
 Components
 NavbarMaterialUI 
 o	not logIn: Links on Nav Bar: Home, About, Search, Dark Mode Login, Registration 
