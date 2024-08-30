@@ -25,7 +25,7 @@ function App() {
   return (
     <div className="App">
       <Provider store={Store}>
-        <BrowserRouter>
+        <BrowserRouter basename="/CardManagerReact">
           <NavbarMaterialUI onSearch={setSearchText} />
           <nav className="horizontal-nav">
           </nav>
