@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.03782708.css",
-    "main.js": "/static/js/main.6cea4763.js",
-    "static/js/453.159d8a3d.chunk.js": "/static/js/453.159d8a3d.chunk.js",
-    "static/media/exampleCard.png": "/static/media/exampleCard.bec01a1afd0c25917926.png",
-    "index.html": "/index.html",
-    "main.03782708.css.map": "/static/css/main.03782708.css.map",
-    "main.6cea4763.js.map": "/static/js/main.6cea4763.js.map",
-    "453.159d8a3d.chunk.js.map": "/static/js/453.159d8a3d.chunk.js.map"
+    "main.css": "/CardManagerReact/static/css/main.03782708.css",
+    "main.js": "/CardManagerReact/static/js/main.f5e90a2f.js",
+    "static/js/453.159d8a3d.chunk.js": "/CardManagerReact/static/js/453.159d8a3d.chunk.js",
+    "static/media/exampleCard.png": "/CardManagerReact/static/media/exampleCard.bec01a1afd0c25917926.png",
+    "index.html": "/CardManagerReact/index.html",
+    "main.03782708.css.map": "/CardManagerReact/static/css/main.03782708.css.map",
+    "main.f5e90a2f.js.map": "/CardManagerReact/static/js/main.f5e90a2f.js.map",
+    "453.159d8a3d.chunk.js.map": "/CardManagerReact/static/js/453.159d8a3d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.03782708.css",
-    "static/js/main.6cea4763.js"
+    "static/js/main.f5e90a2f.js"
   ]
 }
